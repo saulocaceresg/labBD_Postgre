@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS public.cargo
 (
     carid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     cardes character varying(40) COLLATE pg_catalog."default" NOT NULL,
-    carsld numeric(5, 2) NOT NULL,
+    carsue numeric(5, 2) NOT NULL,
     carestreg boolean NOT NULL,
     CONSTRAINT cargo_pkey PRIMARY KEY (carid)
 );
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS public.cliente
     clinom character varying(50) COLLATE pg_catalog."default" NOT NULL,
     cliapepat character varying(50) COLLATE pg_catalog."default" NOT NULL,
     cliapemat character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    clicorreo character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    clicor character varying(100) COLLATE pg_catalog."default" NOT NULL,
     clidir character varying(100) COLLATE pg_catalog."default" NOT NULL,
     clilimcred integer NOT NULL,
     repid integer NOT NULL,
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS public.empresa
 (
     empid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     empnom character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    emptipo integer NOT NULL,
+    emptip integer NOT NULL,
     empestreg boolean NOT NULL,
     CONSTRAINT empresa_pkey PRIMARY KEY (empid)
 );
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS public.fabricante
 (
     fabid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     fabnom character varying(20) COLLATE pg_catalog."default" NOT NULL,
-    tipoid integer NOT NULL,
+    tipid integer NOT NULL,
     fabestreg boolean NOT NULL,
     CONSTRAINT fabricante_pkey PRIMARY KEY (fabid)
 );
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS public.movimiento
     movid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     cliid integer NOT NULL,
     movnom character varying(20) COLLATE pg_catalog."default",
-    movfecanio smallint,
+    movfecani smallint,
     movfecmes smallint,
     movfecdia smallint,
     CONSTRAINT movimiento_pkey PRIMARY KEY (movid)
@@ -111,22 +111,22 @@ CREATE TABLE IF NOT EXISTS public.movimiento
 
 CREATE TABLE IF NOT EXISTS public.oficina
 (
-    ofid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
-    ofrepid integer NOT NULL,
-    empid integer NOT NULL,
+    ofiid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    ofirepid integer NOT NULL,
+    -- empid integer NOT NULL,
     ofirepnom character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    ofrepestreg boolean NOT NULL,
-    CONSTRAINT oficina_pkey PRIMARY KEY (ofid)
+    ofirepestreg boolean NOT NULL,
+    CONSTRAINT oficina_pkey PRIMARY KEY (ofiid)
 );
 
 CREATE TABLE IF NOT EXISTS public.oficina_representante
 (
-    ofrepid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
-    ofid integer NOT NULL,
+    ofirepid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    ofiid integer NOT NULL,
     ofirepnom character varying(50) COLLATE pg_catalog."default" NOT NULL,
     ofirepestreg boolean NOT NULL,
-    CONSTRAINT oficina_representante_pkey PRIMARY KEY (ofrepid),
-    UNIQUE (ofid)
+    CONSTRAINT oficina_representante_pkey PRIMARY KEY (ofirepid),
+    UNIQUE (ofiid)
 );
 
 CREATE TABLE IF NOT EXISTS public.producto
@@ -157,11 +157,11 @@ CREATE TABLE IF NOT EXISTS public.rep_venta
     carid integer NOT NULL,
     repnom character varying(50) COLLATE pg_catalog."default" NOT NULL,
     reped integer,
-    ofid integer NOT NULL,
+    ofiid integer NOT NULL,
     repcar character varying(50) COLLATE pg_catalog."default" NOT NULL,
     repcon integer NOT NULL,
     repcuo integer NOT NULL,
-    repvenreal integer NOT NULL,
+    repvenrea integer NOT NULL,
     repestreg boolean NOT NULL,
     CONSTRAINT rep_venta_pkey PRIMARY KEY (repid)
 );
@@ -177,10 +177,10 @@ CREATE TABLE IF NOT EXISTS public.rol_usuario
 
 CREATE TABLE IF NOT EXISTS public.tipo
 (
-    tipoid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
-    tiponom character varying(20) COLLATE pg_catalog."default" NOT NULL,
-    tipoestreg boolean NOT NULL,
-    CONSTRAINT tipo_pkey PRIMARY KEY (tipoid)
+    tipid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    tipnom character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    tipestreg boolean NOT NULL,
+    CONSTRAINT tip_pkey PRIMARY KEY (tipid)
 );
 
 CREATE TABLE IF NOT EXISTS public.unidad_medida
@@ -239,15 +239,15 @@ ALTER TABLE IF EXISTS public.detalle
     ON DELETE NO ACTION;
 
 ALTER TABLE IF EXISTS public.empresa
-    ADD CONSTRAINT empresa_emptipo_fkey FOREIGN KEY (emptipo)
-    REFERENCES public.tipo (tipoid) MATCH SIMPLE
+    ADD CONSTRAINT empresa_emptip_fkey FOREIGN KEY (emptip)
+    REFERENCES public.tip (tipid) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION;
 
 
 ALTER TABLE IF EXISTS public.fabricante
-    ADD CONSTRAINT fabricante_tipoid_fkey FOREIGN KEY (tipoid)
-    REFERENCES public.tipo (tipoid) MATCH SIMPLE
+    ADD CONSTRAINT fabricante_tipid_fkey FOREIGN KEY (tipid)
+    REFERENCES public.tip (tipid) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION;
 
@@ -295,8 +295,8 @@ ALTER TABLE IF EXISTS public.oficina
 
 
 ALTER TABLE IF EXISTS public.oficina_representante
-    ADD FOREIGN KEY (ofid)
-    REFERENCES public.oficina (ofid) MATCH SIMPLE
+    ADD FOREIGN KEY (ofiid)
+    REFERENCES public.oficina (ofiid) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION
     NOT VALID;
@@ -331,8 +331,8 @@ ALTER TABLE IF EXISTS public.rep_venta
 
 
 ALTER TABLE IF EXISTS public.rep_venta
-    ADD CONSTRAINT rep_venta_ofid_fkey FOREIGN KEY (ofid)
-    REFERENCES public.oficina (ofid) MATCH SIMPLE
+    ADD CONSTRAINT rep_venta_ofiid_fkey FOREIGN KEY (ofiid)
+    REFERENCES public.oficina (ofiid) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION;
 
