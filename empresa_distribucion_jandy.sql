@@ -52,11 +52,28 @@ CREATE TABLE IF NOT EXISTS public.creditos
     CONSTRAINT creditos_pkey PRIMARY KEY (creid)
 );
 
+CREATE TABLE IF NOT EXISTS public.factura
+(
+    facid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    cliid integer NOT NULL,
+    repid integer NOT NULL,
+    fabid integer NOT NULL,
+    facprodes character varying(100) COLLATE pg_catalog."default",
+    facimp integer NOT NULL,
+    facanio integer NOT NULL,
+    facmes integer NOT NULL,
+    facdia integer NOT NULL,
+    ciuid integer NOT NULL,
+    facestreg boolean NOT NULL,
+    CONSTRAINT factura_pkey PRIMARY KEY (facid)
+);
+
 CREATE TABLE IF NOT EXISTS public.detalle
 (
     detid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     cliid integer NOT NULL,
     proid integer NOT NULL,
+	facid integer NOT NULL,
     detprodes character varying(100) COLLATE pg_catalog."default",
     detcan integer NOT NULL,
     detestreg boolean NOT NULL,
@@ -79,23 +96,6 @@ CREATE TABLE IF NOT EXISTS public.fabricante
     tipoid integer NOT NULL,
     fabestreg boolean NOT NULL,
     CONSTRAINT fabricante_pkey PRIMARY KEY (fabid)
-);
-
-CREATE TABLE IF NOT EXISTS public.factura
-(
-    facid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
-    cliid integer NOT NULL,
-    repid integer NOT NULL,
-    fabid integer NOT NULL,
-    facprodes character varying(100) COLLATE pg_catalog."default",
-    detid integer NOT NULL,
-    facimp integer NOT NULL,
-    facanio integer NOT NULL,
-    facmes integer NOT NULL,
-    facdia integer NOT NULL,
-    ciuid integer NOT NULL,
-    facestreg boolean NOT NULL,
-    CONSTRAINT factura_pkey PRIMARY KEY (facid)
 );
 
 CREATE TABLE IF NOT EXISTS public.movimiento
@@ -232,6 +232,11 @@ ALTER TABLE IF EXISTS public.detalle
     ON UPDATE NO ACTION
     ON DELETE NO ACTION;
 
+ALTER TABLE IF EXISTS public.detalle
+    ADD CONSTRAINT detalle_facid_fkey FOREIGN KEY (facid)
+    REFERENCES public.factura (facid) MATCH SIMPLE
+    ON UPDATE NO ACTION
+    ON DELETE NO ACTION;
 
 ALTER TABLE IF EXISTS public.empresa
     ADD CONSTRAINT empresa_emptipo_fkey FOREIGN KEY (emptipo)
@@ -257,13 +262,6 @@ ALTER TABLE IF EXISTS public.factura
 ALTER TABLE IF EXISTS public.factura
     ADD CONSTRAINT factura_cliid_fkey FOREIGN KEY (cliid)
     REFERENCES public.cliente (cliid) MATCH SIMPLE
-    ON UPDATE NO ACTION
-    ON DELETE NO ACTION;
-
-
-ALTER TABLE IF EXISTS public.factura
-    ADD CONSTRAINT factura_detid_fkey FOREIGN KEY (detid)
-    REFERENCES public.detalle (detid) MATCH SIMPLE
     ON UPDATE NO ACTION
     ON DELETE NO ACTION;
 
