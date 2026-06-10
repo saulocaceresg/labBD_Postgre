@@ -3,6 +3,7 @@ package connection;
 import java.sql.Connection;
 //import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ConnectionBD {
@@ -10,11 +11,9 @@ public class ConnectionBD {
 	public static void main(String[] args) {
 		
 		Connection connect = null;
-		String jdbc = "jdbc:postgresql://localhost:3306/BD_EMPRESAS_DISTRIBUCION";
 		
 		final String url = "jdbc:postgresql://localhost:5432/"; // 5432: puerto por defecto de postgresql
 		final String dbName = "BD_EMPRESAS_DISTRIBUCION";
-		final String drive = "com.postgres.Driver";
 		final String userName = "postgres";
 		final String password = "deuX?49mAR";
 		
@@ -34,6 +33,13 @@ public class ConnectionBD {
 			
 		}
 
+	}
+	
+	public static void insercion(Connection connect) throws SQLException {
+		String sql = "INSERT INTO region (regnom, regestreg) VALUES (?, ?)";
+		PreparedStatement stmt = connect.prepareStatement(sql);
+		stmt.setString(1, "Arequipa");
+		stmt.setCh
 	}
 
 }
