@@ -19,7 +19,12 @@ public class ConnectionBD {
 		
 		try {
 			connect = DriverManager.getConnection(url + dbName, userName, password);
-			System.out.println("Estoy dentro.");
+			System.out.println("CONEXIÓN LOGRADA.");
+			
+			// consulta de inserción
+			//	insercion(connect);
+			// insercionTablaM(connect);
+			updateTablaR(connect);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -36,10 +41,47 @@ public class ConnectionBD {
 	}
 	
 	public static void insercion(Connection connect) throws SQLException {
-		String sql = "INSERT INTO region (regnom, regestreg) VALUES (?, ?)";
-		PreparedStatement stmt = connect.prepareStatement(sql);
-		stmt.setString(1, "Arequipa");
-		stmt.setCh
+		String sql = "INSERT INTO region (regnom, regestreg) VALUES (?, ?)"; // consulta plantilla
+		PreparedStatement stmt = connect.prepareStatement(sql); // statement para la conexión
+		// Valores insertados		
+		stmt.setString(1, "Lima");
+		stmt.setString(2, String.valueOf('A')); // se convierte el string a su valor UNICODE para guardarlo como CHAR
+		
+		int count = stmt.executeUpdate();
+		
+		System.out.println("Inserción completada: " + count);
+		
+		stmt.close();
+	}
+	
+	public static void insercionTablaM(Connection connect) throws SQLException {
+		String sql = "INSERT INTO empresa (empnom, emptip, empestreg) VALUES (?, ?, ?)"; // consulta plantilla
+		PreparedStatement stmt = connect.prepareStatement(sql); // statement para la conexión
+		// Valores insertados
+		stmt.setString(1, "Jandy");
+		stmt.setInt(2, 1);
+		stmt.setString(3, String.valueOf('A')); // se convierte el string a su valor UNICODE para guardarlo como CHAR
+		
+		int count = stmt.executeUpdate();
+		
+		System.out.println("Inserción completada: " + count);
+		
+		stmt.close();
+	}
+	
+	public static void updateTablaR(Connection connect) throws SQLException {
+		String sql = "UPDATE tipo_empresa SET tipnom = ? WHERE tipid = ?"; // consulta plantilla
+		PreparedStatement stmt = connect.prepareStatement(sql); // statement para la conexión
+		
+		// Valores actualizados
+		stmt.setString(1, "Juguetes");
+		stmt.setInt(2, 2);
+		
+		int count = stmt.executeUpdate();
+		
+		System.out.println("REGISTROS ACTUALIZADOS: " + count);
+		
+		stmt.close();
 	}
 
 }

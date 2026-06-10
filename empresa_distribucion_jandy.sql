@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS public.producto
 
 CREATE TABLE IF NOT EXISTS public.region
 (
-    regid smallint NOT NULL,
+    regid smallint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 32767 CACHE 1 ),
     regnom character varying(20) COLLATE pg_catalog."default" NOT NULL,
     regdes character varying(40) COLLATE pg_catalog."default",
     regestreg CHAR(1) NOT NULL CHECK (regestreg IN ('A', 'I', 'E')),
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS public.unidad_medida
 
 CREATE TABLE IF NOT EXISTS public.direccion
 (
-    dirid integer NOT NULL,
+    dirid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     cliid integer NOT NULL,
     calid integer NOT NULL,
     dircalnum character varying(5) NOT NULL,
@@ -179,7 +179,7 @@ CREATE TABLE IF NOT EXISTS public.direccion
 
 CREATE TABLE IF NOT EXISTS public.calle
 (
-    calid integer NOT NULL,
+    calid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     calnom character varying(100) NOT NULL,
     caldes character varying(200),
     calestreg CHAR(1) NOT NULL CHECK (calestreg IN ('A', 'I', 'E')),
@@ -188,7 +188,7 @@ CREATE TABLE IF NOT EXISTS public.calle
 
 CREATE TABLE IF NOT EXISTS public.barrio
 (
-    barid integer NOT NULL,
+    barid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     barnom character varying(50) NOT NULL,
     bardes character varying(100),
     barestreg CHAR(1) NOT NULL CHECK (barestreg IN ('A', 'I', 'E')),
