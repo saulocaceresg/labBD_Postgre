@@ -1,5 +1,5 @@
 .env/
-./java/entregable 7 - conexión a java/BDConection_EmpresasDistribucion/src/main/resources/bd.properties
+java/entregable 7 - conexión a java/BDConection_EmpresasDistribucion/src/main/resources/bd.properties
 target/
 
 # IDE Eclipse
