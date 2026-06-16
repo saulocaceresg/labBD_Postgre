@@ -13,6 +13,10 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.table.DefaultTableModel;
 import java.awt.ComponentOrientation;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.EtchedBorder;
 
 public class Form extends JFrame {
 	private JTextField txtcarcod;
@@ -30,17 +34,21 @@ public class Form extends JFrame {
 		JPanel registro_cargo = new JPanel();
 		registro_cargo.setBorder(new TitledBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Registro de Cargo", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Tabla_cargo", TitledBorder.LEFT, TitledBorder.TOP, null, null));
+		JPanel pan_tabla_cargo = new JPanel();
+		pan_tabla_cargo.setBorder(new TitledBorder(null, "Tabla_cargo", TitledBorder.LEFT, TitledBorder.TOP, null, null));
+		
+		JPanel pan_buttons = new JPanel();
+		pan_buttons.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GroupLayout gl_pan_cargo = new GroupLayout(pan_cargo);
 		gl_pan_cargo.setHorizontalGroup(
-			gl_pan_cargo.createParallelGroup(Alignment.LEADING)
+			gl_pan_cargo.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_pan_cargo.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_pan_cargo.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(registro_cargo, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 392, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(197, Short.MAX_VALUE))
+					.addGroup(gl_pan_cargo.createParallelGroup(Alignment.LEADING)
+						.addComponent(registro_cargo, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+						.addComponent(pan_buttons, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+						.addComponent(pan_tabla_cargo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(31))
 		);
 		gl_pan_cargo.setVerticalGroup(
 			gl_pan_cargo.createParallelGroup(Alignment.LEADING)
@@ -48,14 +56,126 @@ public class Form extends JFrame {
 					.addContainerGap()
 					.addComponent(registro_cargo, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(66, Short.MAX_VALUE))
+					.addComponent(pan_tabla_cargo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(pan_buttons, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(61, Short.MAX_VALUE))
 		);
+		GridBagLayout gbl_pan_buttons = new GridBagLayout();
+		gbl_pan_buttons.columnWidths = new int[] {20, 20, 20};
+		gbl_pan_buttons.rowHeights = new int[] {20};
+		gbl_pan_buttons.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0};
+		gbl_pan_buttons.rowWeights = new double[]{0.0, 0.0};
+		pan_buttons.setLayout(gbl_pan_buttons);
+		
+		JButton btn_add = new JButton("Adicionar");
+		btn_add.setSize(new Dimension(50, 20));
+		btn_add.setMinimumSize(new Dimension(20, 10));
+		btn_add.setHorizontalTextPosition(SwingConstants.CENTER);
+		btn_add.setMargin(new Insets(10, 20, 10, 20));
+		btn_add.setMaximumSize(new Dimension(30, 20));
+		GridBagConstraints gbc_btn_add = new GridBagConstraints();
+		gbc_btn_add.fill = GridBagConstraints.BOTH;
+		gbc_btn_add.insets = new Insets(0, 0, 5, 5);
+		gbc_btn_add.gridx = 0;
+		gbc_btn_add.gridy = 0;
+		pan_buttons.add(btn_add, gbc_btn_add);
+		
+		JButton btn_mod = new JButton("Modificar");
+		btn_mod.setSize(new Dimension(50, 20));
+		btn_mod.setMinimumSize(new Dimension(20, 10));
+		btn_mod.setHorizontalTextPosition(SwingConstants.CENTER);
+		btn_mod.setMargin(new Insets(10, 20, 10, 20));
+		btn_mod.setMaximumSize(new Dimension(30, 20));
+		GridBagConstraints gbc_btn_mod = new GridBagConstraints();
+		gbc_btn_mod.fill = GridBagConstraints.BOTH;
+		gbc_btn_mod.insets = new Insets(0, 0, 5, 5);
+		gbc_btn_mod.gridx = 1;
+		gbc_btn_mod.gridy = 0;
+		pan_buttons.add(btn_mod, gbc_btn_mod);
+		
+		JButton btn_Eliminar = new JButton("Eliminar");
+		btn_Eliminar.setSize(new Dimension(50, 20));
+		btn_Eliminar.setMinimumSize(new Dimension(20, 10));
+		btn_Eliminar.setHorizontalTextPosition(SwingConstants.CENTER);
+		btn_Eliminar.setMargin(new Insets(10, 20, 10, 20));
+		btn_Eliminar.setMaximumSize(new Dimension(30, 20));
+		GridBagConstraints gbc_btn_Eliminar = new GridBagConstraints();
+		gbc_btn_Eliminar.fill = GridBagConstraints.BOTH;
+		gbc_btn_Eliminar.insets = new Insets(0, 0, 5, 5);
+		gbc_btn_Eliminar.gridx = 2;
+		gbc_btn_Eliminar.gridy = 0;
+		pan_buttons.add(btn_Eliminar, gbc_btn_Eliminar);
+		
+		JButton btn_cancel = new JButton("Cancelar");
+		btn_cancel.setSize(new Dimension(50, 20));
+		btn_cancel.setMinimumSize(new Dimension(20, 10));
+		btn_cancel.setHorizontalTextPosition(SwingConstants.CENTER);
+		btn_cancel.setMargin(new Insets(10, 20, 10, 20));
+		btn_cancel.setMaximumSize(new Dimension(30, 20));
+		GridBagConstraints gbc_btn_cancel = new GridBagConstraints();
+		gbc_btn_cancel.fill = GridBagConstraints.BOTH;
+		gbc_btn_cancel.insets = new Insets(0, 0, 5, 0);
+		gbc_btn_cancel.gridx = 3;
+		gbc_btn_cancel.gridy = 0;
+		pan_buttons.add(btn_cancel, gbc_btn_cancel);
+		
+		JButton btn_inactivate = new JButton("Inactivar");
+		btn_inactivate.setSize(new Dimension(50, 20));
+		btn_inactivate.setMinimumSize(new Dimension(20, 10));
+		btn_inactivate.setHorizontalTextPosition(SwingConstants.CENTER);
+		btn_inactivate.setMargin(new Insets(10, 20, 10, 20));
+		btn_inactivate.setMaximumSize(new Dimension(30, 20));
+		GridBagConstraints gbc_btn_inactivate = new GridBagConstraints();
+		gbc_btn_inactivate.fill = GridBagConstraints.BOTH;
+		gbc_btn_inactivate.insets = new Insets(0, 0, 0, 5);
+		gbc_btn_inactivate.gridx = 0;
+		gbc_btn_inactivate.gridy = 1;
+		pan_buttons.add(btn_inactivate, gbc_btn_inactivate);
+		
+		JButton btn_reactivate = new JButton("Reactivar");
+		btn_reactivate.setSize(new Dimension(50, 20));
+		btn_reactivate.setMinimumSize(new Dimension(20, 10));
+		btn_reactivate.setHorizontalTextPosition(SwingConstants.CENTER);
+		btn_reactivate.setMargin(new Insets(10, 20, 10, 20));
+		btn_reactivate.setMaximumSize(new Dimension(30, 20));
+		GridBagConstraints gbc_btn_reactivate = new GridBagConstraints();
+		gbc_btn_reactivate.fill = GridBagConstraints.BOTH;
+		gbc_btn_reactivate.insets = new Insets(0, 0, 0, 5);
+		gbc_btn_reactivate.gridx = 1;
+		gbc_btn_reactivate.gridy = 1;
+		pan_buttons.add(btn_reactivate, gbc_btn_reactivate);
+		
+		JButton btn_update = new JButton("Actualizar");
+		btn_update.setSize(new Dimension(50, 20));
+		btn_update.setMinimumSize(new Dimension(20, 10));
+		btn_update.setHorizontalTextPosition(SwingConstants.CENTER);
+		btn_update.setMargin(new Insets(10, 20, 10, 20));
+		btn_update.setMaximumSize(new Dimension(30, 20));
+		GridBagConstraints gbc_btn_update = new GridBagConstraints();
+		gbc_btn_update.fill = GridBagConstraints.BOTH;
+		gbc_btn_update.insets = new Insets(0, 0, 0, 5);
+		gbc_btn_update.gridx = 2;
+		gbc_btn_update.gridy = 1;
+		pan_buttons.add(btn_update, gbc_btn_update);
+		
+		JButton btn_exit = new JButton("Salir");
+		btn_exit.setSize(new Dimension(50, 20));
+		btn_exit.setMinimumSize(new Dimension(20, 10));
+		btn_exit.setHorizontalTextPosition(SwingConstants.CENTER);
+		btn_exit.setMargin(new Insets(10, 20, 10, 20));
+		btn_exit.setMaximumSize(new Dimension(30, 20));
+		GridBagConstraints gbc_btn_exit = new GridBagConstraints();
+		gbc_btn_exit.fill = GridBagConstraints.BOTH;
+		gbc_btn_exit.gridx = 3;
+		gbc_btn_exit.gridy = 1;
+		pan_buttons.add(btn_exit, gbc_btn_exit);
 		
 		JScrollPane scrl_tab_cargo = new JScrollPane();
+		scrl_tab_cargo.setPreferredSize(new Dimension(400, 80));
 		scrl_tab_cargo.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		scrl_tab_cargo.setSize(new Dimension(0, 5));
-		panel.add(scrl_tab_cargo);
+		pan_tabla_cargo.add(scrl_tab_cargo);
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
