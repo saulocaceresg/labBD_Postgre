@@ -7,20 +7,24 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
+
+import util.Configuration;
 //import javax.swing.*;
 
 public class ConnectionDB {
 
+	// Obtención de datos de conexión (ocultos :D)
+	private static final String URL = Configuration.getProperties("URL");
+	private static final String USER = Configuration.getProperties("USER");
+	private static final String PASSWORD = Configuration.getProperties("PASSWORD");
+	
 	public static void main(String[] args) {
 		
-//		Connection connect = null;
-		
-//		private static String URL;
-//		private static String USER;
-		
+		Connection cn = null;
 		
 		try {
-//			connect = DriverManager.getConnection(url + dbName, userName, password);
+			cn = DriverManager.getConnection(URL, USER, PASSWORD);
 			System.out.println("CONEXIÓN LOGRADA.");
 			
 		} catch (SQLException e) {

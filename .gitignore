@@ -1,1 +1,10 @@
 .env/
+src/main/resources/bd.properties
+target/
+
+# IDE Eclipse
+.project
+.classpath
+.settings/
+*.iml
+.idea/
