@@ -12,36 +12,74 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.table.DefaultTableModel;
+import java.awt.ComponentOrientation;
 
 public class Form extends JFrame {
 	private JTextField txtcarcod;
 	private JTextField txtcarnom;
 	private JTextField textField_2;
+	private JTable table;
 
 	public Form() {
 		setTitle("CARGO");
 		getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JPanel panel = new JPanel();
-		getContentPane().add(panel);
+		JPanel pan_cargo = new JPanel();
+		getContentPane().add(pan_cargo);
 		
 		JPanel registro_cargo = new JPanel();
 		registro_cargo.setBorder(new TitledBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "Registro de Cargo", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "Tabla_cargo", TitledBorder.LEFT, TitledBorder.TOP, null, null));
+		GroupLayout gl_pan_cargo = new GroupLayout(pan_cargo);
+		gl_pan_cargo.setHorizontalGroup(
+			gl_pan_cargo.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pan_cargo.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(registro_cargo, GroupLayout.PREFERRED_SIZE, 392, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(279, Short.MAX_VALUE))
+					.addGroup(gl_pan_cargo.createParallelGroup(Alignment.TRAILING)
+						.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(registro_cargo, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 392, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(197, Short.MAX_VALUE))
 		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
+		gl_pan_cargo.setVerticalGroup(
+			gl_pan_cargo.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pan_cargo.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(registro_cargo, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(309, Short.MAX_VALUE))
+					.addGap(18)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(66, Short.MAX_VALUE))
 		);
+		
+		JScrollPane scrl_tab_cargo = new JScrollPane();
+		scrl_tab_cargo.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		scrl_tab_cargo.setSize(new Dimension(0, 5));
+		panel.add(scrl_tab_cargo);
+		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+			},
+			new String[] {
+				"C\u00F3digo", "Nombre", "Descripci\u00F3n", "Sueldo", "Estado Registro"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				Integer.class, String.class, String.class, Double.class, String.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		table.getColumnModel().getColumn(0).setPreferredWidth(50);
+		table.getColumnModel().getColumn(1).setPreferredWidth(80);
+		table.getColumnModel().getColumn(2).setPreferredWidth(150);
+		table.getColumnModel().getColumn(4).setPreferredWidth(100);
+		scrl_tab_cargo.setViewportView(table);
 		GridBagLayout gbl_registro_cargo = new GridBagLayout();
 		gbl_registro_cargo.columnWidths = new int[] {55, 250};
 		gbl_registro_cargo.rowHeights = new int[] {20};
@@ -164,7 +202,7 @@ public class Form extends JFrame {
 		gbc_label_5.gridx = 6;
 		gbc_label_5.gridy = 4;
 		registro_cargo.add(label_5, gbc_label_5);
-		panel.setLayout(gl_panel);
+		pan_cargo.setLayout(gl_pan_cargo);
 //		create
 		setVisible(true);
 	}
