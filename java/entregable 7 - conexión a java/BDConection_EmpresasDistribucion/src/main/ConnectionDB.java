@@ -1,4 +1,4 @@
-package connection;
+package main;
 
 import java.sql.Connection;
 //import java.sql.Driver;
@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ConnectionBD {
+public class ConnectionDB {
 
 	public static void main(String[] args) {
 		
@@ -23,13 +23,19 @@ public class ConnectionBD {
 			System.out.println("CONEXIÓN LOGRADA.");
 			
 			// consulta de inserción
-			//	insercion(connect);
+			 insercion(connect);
 			// insercionTablaM(connect);
+			
+			// consulta de actualización
 			// updateTablaR(connect);
 			// updateTablaM(connect);
+			
+			// consulta de selección
 			// selectTablaR(connect);
 			// selectTablaM(connect);
-			 delete(connect);
+			
+			// consulta de eliminación
+			// delete(connect);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
