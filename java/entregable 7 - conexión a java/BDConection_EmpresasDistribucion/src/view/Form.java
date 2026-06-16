@@ -329,8 +329,8 @@ public class Form extends JFrame {
 	
 	public static void main(String[] args) {
 		
-		JFrame j1 = new JFrame("Title");
-		
+		Form frm = new Form();
+		frm.setVisible(true);
 		
 	}
 }
