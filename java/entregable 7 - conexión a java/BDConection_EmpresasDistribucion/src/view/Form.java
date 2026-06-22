@@ -21,7 +21,7 @@ import javax.swing.border.EtchedBorder;
 public class Form extends JFrame {
 	private JTextField txtcarcod;
 	private JTextField txtcarnom;
-	private JTextField textField_2;
+	private JTextField txtcardes;
 	private JTable table;
 
 	public Form() {
@@ -94,18 +94,18 @@ public class Form extends JFrame {
 		gbc_btn_mod.gridy = 0;
 		pan_buttons.add(btn_mod, gbc_btn_mod);
 		
-		JButton btn_Eliminar = new JButton("Eliminar");
-		btn_Eliminar.setSize(new Dimension(50, 20));
-		btn_Eliminar.setMinimumSize(new Dimension(20, 10));
-		btn_Eliminar.setHorizontalTextPosition(SwingConstants.CENTER);
-		btn_Eliminar.setMargin(new Insets(10, 20, 10, 20));
-		btn_Eliminar.setMaximumSize(new Dimension(30, 20));
-		GridBagConstraints gbc_btn_Eliminar = new GridBagConstraints();
-		gbc_btn_Eliminar.fill = GridBagConstraints.BOTH;
-		gbc_btn_Eliminar.insets = new Insets(0, 0, 5, 5);
-		gbc_btn_Eliminar.gridx = 2;
-		gbc_btn_Eliminar.gridy = 0;
-		pan_buttons.add(btn_Eliminar, gbc_btn_Eliminar);
+		JButton btn_eliminar = new JButton("Eliminar");
+		btn_eliminar.setSize(new Dimension(50, 20));
+		btn_eliminar.setMinimumSize(new Dimension(20, 10));
+		btn_eliminar.setHorizontalTextPosition(SwingConstants.CENTER);
+		btn_eliminar.setMargin(new Insets(10, 20, 10, 20));
+		btn_eliminar.setMaximumSize(new Dimension(30, 20));
+		GridBagConstraints gbc_btn_eliminar = new GridBagConstraints();
+		gbc_btn_eliminar.fill = GridBagConstraints.BOTH;
+		gbc_btn_eliminar.insets = new Insets(0, 0, 5, 5);
+		gbc_btn_eliminar.gridx = 2;
+		gbc_btn_eliminar.gridy = 0;
+		pan_buttons.add(btn_eliminar, gbc_btn_eliminar);
 		
 		JButton btn_cancel = new JButton("Cancelar");
 		btn_cancel.setSize(new Dimension(50, 20));
@@ -266,15 +266,15 @@ public class Form extends JFrame {
 		gbc_cardes.gridy = 2;
 		registro_cargo.add(cardes, gbc_cardes);
 		
-		textField_2 = new JTextField();
-		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.anchor = GridBagConstraints.LINE_START;
-		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_2.gridx = 1;
-		gbc_textField_2.gridy = 2;
-		registro_cargo.add(textField_2, gbc_textField_2);
-		textField_2.setColumns(10);
+		txtcardes = new JTextField();
+		GridBagConstraints gbc_txtcardes = new GridBagConstraints();
+		gbc_txtcardes.anchor = GridBagConstraints.LINE_START;
+		gbc_txtcardes.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtcardes.insets = new Insets(0, 0, 5, 5);
+		gbc_txtcardes.gridx = 1;
+		gbc_txtcardes.gridy = 2;
+		registro_cargo.add(txtcardes, gbc_txtcardes);
+		txtcardes.setColumns(10);
 		
 		JLabel carestreg = new JLabel("Estado Registro");
 		GridBagConstraints gbc_carestreg = new GridBagConstraints();
@@ -284,13 +284,13 @@ public class Form extends JFrame {
 		gbc_carestreg.gridy = 3;
 		registro_cargo.add(carestreg, gbc_carestreg);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("");
-		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
-		gbc_chckbxNewCheckBox.fill = GridBagConstraints.BOTH;
-		gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxNewCheckBox.gridx = 1;
-		gbc_chckbxNewCheckBox.gridy = 3;
-		registro_cargo.add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
+		JCheckBox chbxcarestreg = new JCheckBox("");
+		GridBagConstraints gbc_chbxcarestreg = new GridBagConstraints();
+		gbc_chbxcarestreg.fill = GridBagConstraints.BOTH;
+		gbc_chbxcarestreg.insets = new Insets(0, 0, 5, 5);
+		gbc_chbxcarestreg.gridx = 1;
+		gbc_chbxcarestreg.gridy = 3;
+		registro_cargo.add(chbxcarestreg, gbc_chbxcarestreg);
 		
 		JLabel label_2 = new JLabel("");
 		GridBagConstraints gbc_label_2 = new GridBagConstraints();
