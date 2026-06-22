@@ -2,6 +2,7 @@ package main;
 
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 //import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -23,20 +24,26 @@ public class ConnectionDB {
 		
 		Connection cn = null;
 		
+		System.out.println("+----------------- CONEXIÓN A LA BASE DE DATOS -----------------+");
 		try {
+			System.out.println("Conectando...");
 			cn = DriverManager.getConnection(URL, USER, PASSWORD);
-			System.out.println("CONEXIÓN LOGRADA.");
+			DatabaseMetaData metaData = cn.getMetaData();
 			
+			System.out.println("¡CONEXIÓN LOGRADA!");
+			String bd = cn.getCatalog();
+			
+			System.out.println("Base de datos: " + bd + "\nMotor: " + metaData.getDatabaseProductName());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-//			if (connect != null) {
-//				try {
-//					connect.close();
-//				} catch (SQLException e2) {
-//					e2.printStackTrace();
-//				}
-//			}
+			if (cn != null) {
+				try {
+					cn.close();
+				} catch (SQLException e2) {
+					e2.printStackTrace();
+				}
+			}
 			
 		}
 
