@@ -18,13 +18,13 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EtchedBorder;
 
-public class Form extends JFrame {
+public class CargoForm extends JFrame {
 	private JTextField txtcarcod;
 	private JTextField txtcarnom;
 	private JTextField txtcardes;
 	private JTable table;
 
-	public Form() {
+	public CargoForm() {
 		setTitle("CARGO");
 		getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 		
@@ -329,7 +329,7 @@ public class Form extends JFrame {
 	
 	public static void main(String[] args) {
 		
-		Form frm = new Form();
+		CargoForm frm = new CargoForm();
 		frm.setVisible(true);
 		
 	}
