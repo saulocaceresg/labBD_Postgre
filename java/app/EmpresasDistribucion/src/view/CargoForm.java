@@ -17,12 +17,14 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EtchedBorder;
+import java.awt.Rectangle;
 
 public class CargoForm extends JFrame {
 	private JTextField txtcarcod;
 	private JTextField txtcarnom;
 	private JTextField txtcardes;
 	private JTable table;
+	private JTextField txtcarsue;
 
 	public CargoForm() {
 		setTitle("CARGO");
@@ -41,25 +43,31 @@ public class CargoForm extends JFrame {
 		pan_buttons.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		GroupLayout gl_pan_cargo = new GroupLayout(pan_cargo);
 		gl_pan_cargo.setHorizontalGroup(
-			gl_pan_cargo.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_pan_cargo.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_pan_cargo.createParallelGroup(Alignment.LEADING)
-						.addComponent(registro_cargo, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-						.addComponent(pan_buttons, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-						.addComponent(pan_tabla_cargo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(31))
-		);
-		gl_pan_cargo.setVerticalGroup(
 			gl_pan_cargo.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_pan_cargo.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(registro_cargo, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_pan_cargo.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.TRAILING, gl_pan_cargo.createSequentialGroup()
+							.addGap(0)
+							.addComponent(registro_cargo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGap(31))
+						.addGroup(gl_pan_cargo.createSequentialGroup()
+							.addComponent(pan_tabla_cargo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGap(31))
+						.addGroup(gl_pan_cargo.createSequentialGroup()
+							.addComponent(pan_buttons, GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+							.addGap(31))))
+		);
+		gl_pan_cargo.setVerticalGroup(
+			gl_pan_cargo.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_pan_cargo.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(registro_cargo, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(pan_tabla_cargo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(pan_buttons, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(61, Short.MAX_VALUE))
+					.addContainerGap(42, Short.MAX_VALUE))
 		);
 		GridBagLayout gbl_pan_buttons = new GridBagLayout();
 		gbl_pan_buttons.columnWidths = new int[] {20, 20, 20};
@@ -202,15 +210,16 @@ public class CargoForm extends JFrame {
 		scrl_tab_cargo.setViewportView(table);
 		GridBagLayout gbl_registro_cargo = new GridBagLayout();
 		gbl_registro_cargo.columnWidths = new int[] {55, 250};
-		gbl_registro_cargo.rowHeights = new int[] {20};
-		gbl_registro_cargo.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl_registro_cargo.rowHeights = new int[] {0, 20, 20, 0, 20};
+		gbl_registro_cargo.columnWeights = new double[]{0.0, 1.0};
 		gbl_registro_cargo.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
 		registro_cargo.setLayout(gbl_registro_cargo);
 		
 		JLabel carid = new JLabel("Código");
 		GridBagConstraints gbc_carid = new GridBagConstraints();
+		gbc_carid.anchor = GridBagConstraints.LINE_START;
 		gbc_carid.fill = GridBagConstraints.BOTH;
-		gbc_carid.insets = new Insets(0, 0, 5, 5);
+		gbc_carid.insets = new Insets(0, 10, 5, 5);
 		gbc_carid.gridx = 0;
 		gbc_carid.gridy = 0;
 		registro_cargo.add(carid, gbc_carid);
@@ -218,33 +227,18 @@ public class CargoForm extends JFrame {
 		txtcarcod = new JTextField();
 		GridBagConstraints gbc_txtcarcod = new GridBagConstraints();
 		gbc_txtcarcod.anchor = GridBagConstraints.LINE_START;
-		gbc_txtcarcod.insets = new Insets(0, 0, 5, 5);
+		gbc_txtcarcod.insets = new Insets(0, 0, 5, 0);
 		gbc_txtcarcod.gridx = 1;
 		gbc_txtcarcod.gridy = 0;
 		registro_cargo.add(txtcarcod, gbc_txtcarcod);
 		txtcarcod.setColumns(10);
 		
-		JLabel label = new JLabel("");
-		GridBagConstraints gbc_label = new GridBagConstraints();
-		gbc_label.fill = GridBagConstraints.BOTH;
-		gbc_label.insets = new Insets(0, 0, 5, 5);
-		gbc_label.gridx = 3;
-		gbc_label.gridy = 0;
-		registro_cargo.add(label, gbc_label);
-		
-		JLabel label_1 = new JLabel("");
-		GridBagConstraints gbc_label_1 = new GridBagConstraints();
-		gbc_label_1.fill = GridBagConstraints.BOTH;
-		gbc_label_1.insets = new Insets(0, 0, 5, 5);
-		gbc_label_1.gridx = 5;
-		gbc_label_1.gridy = 0;
-		registro_cargo.add(label_1, gbc_label_1);
-		
 		JLabel carnom = new JLabel("Nombre");
 		carnom.setHorizontalAlignment(SwingConstants.LEFT);
 		GridBagConstraints gbc_carnom = new GridBagConstraints();
+		gbc_carnom.anchor = GridBagConstraints.LINE_START;
 		gbc_carnom.fill = GridBagConstraints.BOTH;
-		gbc_carnom.insets = new Insets(0, 0, 5, 5);
+		gbc_carnom.insets = new Insets(0, 10, 5, 5);
 		gbc_carnom.gridx = 0;
 		gbc_carnom.gridy = 1;
 		registro_cargo.add(carnom, gbc_carnom);
@@ -252,7 +246,7 @@ public class CargoForm extends JFrame {
 		txtcarnom = new JTextField();
 		GridBagConstraints gbc_txtcarnom = new GridBagConstraints();
 		gbc_txtcarnom.anchor = GridBagConstraints.LINE_START;
-		gbc_txtcarnom.insets = new Insets(0, 0, 5, 5);
+		gbc_txtcarnom.insets = new Insets(0, 0, 5, 0);
 		gbc_txtcarnom.gridx = 1;
 		gbc_txtcarnom.gridy = 1;
 		registro_cargo.add(txtcarnom, gbc_txtcarnom);
@@ -260,68 +254,59 @@ public class CargoForm extends JFrame {
 		
 		JLabel cardes = new JLabel("Descripción");
 		GridBagConstraints gbc_cardes = new GridBagConstraints();
+		gbc_cardes.anchor = GridBagConstraints.LINE_START;
 		gbc_cardes.fill = GridBagConstraints.BOTH;
-		gbc_cardes.insets = new Insets(0, 0, 5, 5);
+		gbc_cardes.insets = new Insets(0, 10, 5, 5);
 		gbc_cardes.gridx = 0;
 		gbc_cardes.gridy = 2;
 		registro_cargo.add(cardes, gbc_cardes);
 		
 		txtcardes = new JTextField();
+		txtcardes.setBounds(new Rectangle(100, 50, 200, 50));
+		txtcardes.setHorizontalAlignment(SwingConstants.LEFT);
+		txtcardes.setPreferredSize(new Dimension(200, 20));
 		GridBagConstraints gbc_txtcardes = new GridBagConstraints();
+		gbc_txtcardes.weightx = 1.0;
 		gbc_txtcardes.anchor = GridBagConstraints.LINE_START;
-		gbc_txtcardes.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtcardes.insets = new Insets(0, 0, 5, 5);
+		gbc_txtcardes.insets = new Insets(0, 0, 5, 0);
 		gbc_txtcardes.gridx = 1;
 		gbc_txtcardes.gridy = 2;
 		registro_cargo.add(txtcardes, gbc_txtcardes);
-		txtcardes.setColumns(10);
+		txtcardes.setColumns(30);
+		
+		JLabel lblSueldo = new JLabel("Sueldo");
+		GridBagConstraints gbc_lblSueldo = new GridBagConstraints();
+		gbc_lblSueldo.anchor = GridBagConstraints.LINE_START;
+		gbc_lblSueldo.fill = GridBagConstraints.VERTICAL;
+		gbc_lblSueldo.insets = new Insets(0, 10, 5, 5);
+		gbc_lblSueldo.gridx = 0;
+		gbc_lblSueldo.gridy = 3;
+		registro_cargo.add(lblSueldo, gbc_lblSueldo);
+		
+		txtcarsue = new JTextField();
+		GridBagConstraints gbc_txtcarsue = new GridBagConstraints();
+		gbc_txtcarsue.anchor = GridBagConstraints.LINE_START;
+		gbc_txtcarsue.insets = new Insets(0, 0, 5, 0);
+		gbc_txtcarsue.gridx = 1;
+		gbc_txtcarsue.gridy = 3;
+		registro_cargo.add(txtcarsue, gbc_txtcarsue);
+		txtcarsue.setColumns(10);
 		
 		JLabel carestreg = new JLabel("Estado Registro");
 		GridBagConstraints gbc_carestreg = new GridBagConstraints();
+		gbc_carestreg.anchor = GridBagConstraints.LINE_START;
 		gbc_carestreg.fill = GridBagConstraints.BOTH;
-		gbc_carestreg.insets = new Insets(0, 0, 5, 5);
+		gbc_carestreg.insets = new Insets(0, 10, 0, 5);
 		gbc_carestreg.gridx = 0;
-		gbc_carestreg.gridy = 3;
+		gbc_carestreg.gridy = 4;
 		registro_cargo.add(carestreg, gbc_carestreg);
 		
 		JCheckBox chbxcarestreg = new JCheckBox("");
 		GridBagConstraints gbc_chbxcarestreg = new GridBagConstraints();
 		gbc_chbxcarestreg.fill = GridBagConstraints.BOTH;
-		gbc_chbxcarestreg.insets = new Insets(0, 0, 5, 5);
 		gbc_chbxcarestreg.gridx = 1;
-		gbc_chbxcarestreg.gridy = 3;
+		gbc_chbxcarestreg.gridy = 4;
 		registro_cargo.add(chbxcarestreg, gbc_chbxcarestreg);
-		
-		JLabel label_2 = new JLabel("");
-		GridBagConstraints gbc_label_2 = new GridBagConstraints();
-		gbc_label_2.fill = GridBagConstraints.BOTH;
-		gbc_label_2.insets = new Insets(0, 0, 0, 5);
-		gbc_label_2.gridx = 0;
-		gbc_label_2.gridy = 4;
-		registro_cargo.add(label_2, gbc_label_2);
-		
-		JLabel label_3 = new JLabel("");
-		GridBagConstraints gbc_label_3 = new GridBagConstraints();
-		gbc_label_3.fill = GridBagConstraints.BOTH;
-		gbc_label_3.insets = new Insets(0, 0, 0, 5);
-		gbc_label_3.gridx = 2;
-		gbc_label_3.gridy = 4;
-		registro_cargo.add(label_3, gbc_label_3);
-		
-		JLabel label_4 = new JLabel("");
-		GridBagConstraints gbc_label_4 = new GridBagConstraints();
-		gbc_label_4.fill = GridBagConstraints.BOTH;
-		gbc_label_4.insets = new Insets(0, 0, 0, 5);
-		gbc_label_4.gridx = 4;
-		gbc_label_4.gridy = 4;
-		registro_cargo.add(label_4, gbc_label_4);
-		
-		JLabel label_5 = new JLabel("");
-		GridBagConstraints gbc_label_5 = new GridBagConstraints();
-		gbc_label_5.fill = GridBagConstraints.BOTH;
-		gbc_label_5.gridx = 6;
-		gbc_label_5.gridy = 4;
-		registro_cargo.add(label_5, gbc_label_5);
 		pan_cargo.setLayout(gl_pan_cargo);
 //		create
 		setVisible(true);
