@@ -9,6 +9,7 @@ public class Cargo {
 	private String cardes;
 	private BigDecimal carsue;
 	private String carestreg;
+	private byte carflaact;
 
 	public Cargo() {
 	}
@@ -61,6 +62,12 @@ public class Cargo {
 		this.carestreg = carestreg;
 	}
 	
-	
+	public byte getCarflaact() {
+		return carflaact;
+	}
+
+	public void setCarflaact(byte carflaact) {
+		this.carflaact = carflaact;
+	}
 	
 }
