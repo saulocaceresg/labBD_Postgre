@@ -327,6 +327,14 @@ public class CargoForm extends JFrame {
 		btn_mod.addActionListener(e -> {
 			controller.modify();
 		});
+		
+		btn_update.addActionListener(e -> {
+			controller.update();
+		});
+		
+		btn_cancel.addActionListener(e -> {
+			controller.cancel();
+		});
 	}
 	
 	public String getCarid() {
