@@ -323,6 +323,14 @@ public class CargoForm extends JFrame {
 		btn_add.addActionListener(e -> {
 			controller.add();
 		});
+		
+		btn_mod.addActionListener(e -> {
+			controller.modify();
+		});
+	}
+	
+	public String getCarid() {
+		return txtcarcod.getText().trim();
 	}
 
 	public String getCarnom() {
