@@ -338,7 +338,7 @@ public class CargoForm extends JFrame {
 	}
 
 	public String getCarestreg() {
-		return chbxcarestreg.getText().trim();
+		return txtcarestreg.getText().trim();
 	}
 
 	public static void main(String[] args) {
