@@ -21,7 +21,7 @@ public class CargoDAO extends BaseDAO {
 			""";
 	private static final String MODIFY = """
 			UPDATE cargo
-			SET carnom = ?, cardes = ?, carsue = ? , carestreg = ?
+			SET cardes = ?
 			WHERE carid = ?
 			""";
 //	private static final String DELETE = """
@@ -68,6 +68,22 @@ public class CargoDAO extends BaseDAO {
 			ps.setString(4, cargo.getCarestreg());
 			
 			ps.executeUpdate();	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void update(Cargo cargo) throws SQLException {
+		try (
+				Connection cn = getConnection();
+				PreparedStatement ps = prepareStatement(cn, MODIFY)
+				) {
+			
+			ps.setString(1, cargo.getCardes());
+			ps.setInt(2, cargo.getCarid());
+			
+			ps.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
