@@ -28,7 +28,7 @@ public class CargoForm extends JFrame {
 	private JTextField txtcardes;
 	private JTable table;
 	private JTextField txtcarsue;
-	private JCheckBox chbxcarestreg;
+	private JTextField txtcarestreg;
 
 	public CargoForm() {
 		setTitle("CARGO");
@@ -298,23 +298,26 @@ public class CargoForm extends JFrame {
 		
 		JLabel carestreg = new JLabel("Estado Registro");
 		GridBagConstraints gbc_carestreg = new GridBagConstraints();
-		gbc_carestreg.anchor = GridBagConstraints.LINE_START;
-		gbc_carestreg.fill = GridBagConstraints.BOTH;
+		gbc_carestreg.anchor = GridBagConstraints.EAST;
+		gbc_carestreg.fill = GridBagConstraints.VERTICAL;
 		gbc_carestreg.insets = new Insets(0, 10, 0, 5);
 		gbc_carestreg.gridx = 0;
 		gbc_carestreg.gridy = 4;
 		registro_cargo.add(carestreg, gbc_carestreg);
 		
-		chbxcarestreg = new JCheckBox("");
-		GridBagConstraints gbc_chbxcarestreg = new GridBagConstraints();
-		gbc_chbxcarestreg.fill = GridBagConstraints.BOTH;
-		gbc_chbxcarestreg.gridx = 1;
-		gbc_chbxcarestreg.gridy = 4;
-		registro_cargo.add(chbxcarestreg, gbc_chbxcarestreg);
+		txtcarestreg = new JTextField();
+		GridBagConstraints gbc_txtcarestreg = new GridBagConstraints();
+		gbc_txtcarestreg.weightx = 1.0;
+		gbc_txtcarestreg.anchor = GridBagConstraints.LINE_START;
+		gbc_txtcarestreg.gridx = 1;
+		gbc_txtcarestreg.gridy = 4;
+		registro_cargo.add(txtcarestreg, gbc_txtcarestreg);
+		txtcarestreg.setColumns(3);
 		pan_cargo.setLayout(gl_pan_cargo);
 //		create
 		setVisible(true);
 		
+		// Objeto Controller para conectar con la BD
 		CargoController controller = new CargoController(this);
 		
 		btn_add.addActionListener(e -> {
