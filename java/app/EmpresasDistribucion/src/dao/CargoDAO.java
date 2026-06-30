@@ -108,6 +108,7 @@ public class CargoDAO extends BaseDAO {
 		changeStatus(carid, "A");
 	}
 	
+	// Método para modifica el estado de registro
 	private void changeStatus(int carid, String carestreg) throws SQLException {
 		try (
 				Connection cn = getConnection();
