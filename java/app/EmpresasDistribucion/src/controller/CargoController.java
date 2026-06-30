@@ -121,4 +121,10 @@ public class CargoController {
 		
 	}
 	
+	public void cancel() {
+		cargo = null;
+		pendingAction = "";
+		carflaact = 0;
+	}
+	
 }
