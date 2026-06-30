@@ -24,7 +24,11 @@ public class CargoDAO extends BaseDAO {
 			SET carnom = ?, cardes = ?, carsue = ?
 			WHERE carid = ?
 			""";
-	private int carflaact = 1;
+	private static final String CHANGE_STATUS = """
+			UPDATE cargo
+			SET carestreg = ?
+			WHERE carid = ?
+			""";
 //	private static final String DELETE = """
 //			
 //			""";
@@ -74,7 +78,7 @@ public class CargoDAO extends BaseDAO {
 		}
 	}
 	
-	public void update(Cargo cargo) throws SQLException {
+	public void modify(Cargo cargo) throws SQLException {
 		try (
 				Connection cn = getConnection();
 				PreparedStatement ps = prepareStatement(cn, MODIFY)
@@ -92,40 +96,31 @@ public class CargoDAO extends BaseDAO {
 		}
 	}
 	
-	public void delete(Cargo cargo) throws SQLException {
+	public void delete(int carid) throws SQLException {
+		changeStatus(carid, "*");
+	}
+	
+	public void inactivate(int carid) throws SQLException {
+		changeStatus(carid, "I");
+	}
+	
+	public void reactivate(int carid) throws SQLException {
+		changeStatus(carid, "A");
+	}
+	
+	private void changeStatus(int carid, String carestreg) throws SQLException {
 		try (
 				Connection cn = getConnection();
+				PreparedStatement ps = prepareStatement(cn, CHANGE_STATUS);
 				) {
 			
-			cargo.setCarestreg("*");
+			ps.setString(1, carestreg);
+			ps.setInt(2, carid);
+			
+			ps.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public void inactivate(Cargo cargo) throws SQLException {
-		try (
-				Connection cn = getConnection()
-				) {
-			
-			cargo.setCarestreg("I");
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void reactivate(Cargo cargo) throws SQLException {
-		try (
-				Connection cn = getConnection();
-				) {
-			
-			cargo.setCarestreg("A");
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
 }
