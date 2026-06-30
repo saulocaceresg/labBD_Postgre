@@ -32,4 +32,33 @@ public class CargoController {
 		}
 	}
 	
+	public void update() {
+		try {
+			Cargo cargo = new Cargo();
+			
+			cargo.setCarnom(cargoForm.getCarnom());
+			cargo.setCardes(cargoForm.getCardes());
+			cargo.setCarsue(new BigDecimal(cargoForm.getCarsue()));
+			
+			cargoDAO.update(cargo);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void delete() {
+		try {
+			
+			Cargo cargo = new Cargo();
+			
+			cargo.setCarestreg(cargoForm.getCarestreg());
+			
+			cargoDAO.delete(cargo);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
