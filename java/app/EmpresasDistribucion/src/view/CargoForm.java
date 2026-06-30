@@ -12,6 +12,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.table.DefaultTableModel;
+
+import controller.CargoController;
+
 import java.awt.ComponentOrientation;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.BevelBorder;
@@ -25,6 +28,7 @@ public class CargoForm extends JFrame {
 	private JTextField txtcardes;
 	private JTable table;
 	private JTextField txtcarsue;
+	private JCheckBox chbxcarestreg;
 
 	public CargoForm() {
 		setTitle("CARGO");
@@ -301,7 +305,7 @@ public class CargoForm extends JFrame {
 		gbc_carestreg.gridy = 4;
 		registro_cargo.add(carestreg, gbc_carestreg);
 		
-		JCheckBox chbxcarestreg = new JCheckBox("");
+		chbxcarestreg = new JCheckBox("");
 		GridBagConstraints gbc_chbxcarestreg = new GridBagConstraints();
 		gbc_chbxcarestreg.fill = GridBagConstraints.BOTH;
 		gbc_chbxcarestreg.gridx = 1;
@@ -310,8 +314,30 @@ public class CargoForm extends JFrame {
 		pan_cargo.setLayout(gl_pan_cargo);
 //		create
 		setVisible(true);
+		
+		CargoController controller = new CargoController(this);
+		
+		btn_add.addActionListener(e -> {
+			controller.add();
+		});
 	}
-	
+
+	public String getCarnom() {
+		return txtcarnom.getText().trim();
+	}
+
+	public String getCardes() {
+		return txtcardes.getText().trim();
+	}
+
+	public String getCarsue() {
+		return txtcarsue.getText().trim();
+	}
+
+	public String getCarestreg() {
+		return chbxcarestreg.getText().trim();
+	}
+
 	public static void main(String[] args) {
 		
 		CargoForm frm = new CargoForm();
