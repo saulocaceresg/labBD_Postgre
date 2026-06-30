@@ -116,4 +116,16 @@ public class CargoDAO extends BaseDAO {
 		}
 	}
 	
+	public void reactivate(Cargo cargo) throws SQLException {
+		try (
+				Connection cn = getConnection();
+				) {
+			
+			cargo.setCarestreg("A");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

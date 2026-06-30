@@ -74,4 +74,16 @@ public class CargoController {
 		}
 	}
 	
+	public void reactivate() {
+		try {
+			
+			cargo.setCarestreg(cargoForm.getCarestreg());
+			
+			cargoDAO.reactivate(cargo);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
