@@ -104,4 +104,16 @@ public class CargoDAO extends BaseDAO {
 		}
 	}
 	
+	public void inactivate(Cargo cargo) throws SQLException {
+		try (
+				Connection cn = getConnection()
+				) {
+			
+			cargo.setCarestreg("I");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

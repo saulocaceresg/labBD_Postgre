@@ -10,6 +10,7 @@ public class CargoController {
 	
 	private CargoForm cargoForm;
 	private CargoDAO cargoDAO;
+	private Cargo cargo;
 	
 	public CargoController(CargoForm form) {
 		this.cargoForm = form;
@@ -18,7 +19,7 @@ public class CargoController {
 	
 	public void add() {
 		try {
-			Cargo cargo = new Cargo();
+//			Cargo cargo = new Cargo();
 			
 			cargo.setCarnom(cargoForm.getCarnom());
 			cargo.setCardes(cargoForm.getCardes());
@@ -34,7 +35,7 @@ public class CargoController {
 	
 	public void update() {
 		try {
-			Cargo cargo = new Cargo();
+//			Cargo cargo = new Cargo();
 			
 			cargo.setCarnom(cargoForm.getCarnom());
 			cargo.setCardes(cargoForm.getCardes());
@@ -50,11 +51,23 @@ public class CargoController {
 	public void delete() {
 		try {
 			
-			Cargo cargo = new Cargo();
+//			Cargo cargo = new Cargo();
 			
 			cargo.setCarestreg(cargoForm.getCarestreg());
 			
 			cargoDAO.delete(cargo);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void inactivate() {
+		try {
+			
+			cargo.setCarestreg(cargoForm.getCarestreg());
+			
+			cargoDAO.inactivate(cargo);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
