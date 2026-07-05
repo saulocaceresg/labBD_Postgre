@@ -329,12 +329,24 @@ public class CargoForm extends JFrame {
 			controller.modify();
 		});
 		
-		btn_update.addActionListener(e -> {
-			controller.update();
+		btn_eliminar.addActionListener(e -> {
+			controller.delete();
 		});
 		
 		btn_cancel.addActionListener(e -> {
 			controller.cancel();
+		});
+		
+		btn_inactivate.addActionListener(e -> {
+			controller.inactivate();
+		});
+		
+		btn_reactivate.addActionListener(e -> {
+			controller.reactivate();
+		});
+		
+		btn_update.addActionListener(e -> {
+			controller.update();
 		});
 		
 		btn_exit.addActionListener(e -> {
