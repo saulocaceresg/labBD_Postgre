@@ -75,6 +75,7 @@ public class CargoDAO extends BaseDAO {
 			ps.executeUpdate();	
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 	
@@ -93,6 +94,7 @@ public class CargoDAO extends BaseDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 	

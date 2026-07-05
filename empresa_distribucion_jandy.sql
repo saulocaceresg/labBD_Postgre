@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS public.cargo
     carid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     carnom character varying(20) NOT NULL,
     cardes character varying(40) COLLATE pg_catalog."default" NOT NULL,
-    carsue numeric(5, 2) NOT NULL,
+    carsue numeric(7, 2) NOT NULL,
     carestreg CHAR(1) NOT NULL CHECK(carestreg IN ('A', 'I', 'E')),
     CONSTRAINT cargo_pkey PRIMARY KEY (carid)
 );
