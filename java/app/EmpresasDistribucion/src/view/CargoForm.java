@@ -31,8 +31,7 @@ public class CargoForm extends JFrame {
 	private JTextField txtcarestreg;
 
 	public CargoForm() {
-		setSize(new Dimension(500, 400));
-		setResizable(false);
+		setSize(new Dimension(520, 520));
 		setTitle("CARGO");
 		getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 		
@@ -337,6 +336,10 @@ public class CargoForm extends JFrame {
 		btn_cancel.addActionListener(e -> {
 			controller.cancel();
 		});
+		
+		btn_exit.addActionListener(e -> {
+			dispose();
+		});
 	}
 	
 	public String getCarid() {
@@ -357,10 +360,6 @@ public class CargoForm extends JFrame {
 
 	public String getCarestreg() {
 		return txtcarestreg.getText().trim();
-	}
-	
-	public void close() {
-		
 	}
 
 	public static void main(String[] args) {

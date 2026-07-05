@@ -124,4 +124,8 @@ public class CargoDAO extends BaseDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public void close() {
+		
+	}
 }
