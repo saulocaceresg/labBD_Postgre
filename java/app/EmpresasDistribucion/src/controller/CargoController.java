@@ -87,12 +87,7 @@ public class CargoController {
 	// método para actualizar los registros. Si la bandera está en 0 no hace nada, si no, según la acción pendiente interactúa con la BD
 	public void update() {
 		if (carflaact == 0) {
-			JOptionPane.showMessageDialog(
-					cargoForm,
-					"No se ha seleccionado un comando para actualizar un registro de la BD",
-					"Actualizar",
-					JOptionPane.WARNING_MESSAGE
-					);
+			showNoActionSelectedWarning();
 			return;
 		}
 		
@@ -135,6 +130,19 @@ public class CargoController {
 		cargo = null;
 		pendingAction = "";
 		carflaact = 0;
+	}
+	
+	private void showNoActionSelectedWarning() {
+	    JOptionPane.showOptionDialog(
+	            cargoForm,
+	            "No se ha seleccionado un comando para actualizar un registro de la BD",
+	            "Actualizar",
+	            JOptionPane.DEFAULT_OPTION,
+	            JOptionPane.WARNING_MESSAGE,
+	            null,
+	            new Object[] { "Cancelar" },
+	            "Cancelar"
+	    );
 	}
 	
 }
