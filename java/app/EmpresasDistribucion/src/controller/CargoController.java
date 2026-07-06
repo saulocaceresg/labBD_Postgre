@@ -31,9 +31,19 @@ public class CargoController {
 	
 	public Cargo createCargo() {
 		Cargo cargo = new Cargo();
+		BigDecimal carsue = new BigDecimal(cargoForm.getCarsue());
 		
 		if (!cargoForm.getCarid().isEmpty()) {
 			cargo.setCarid(Integer.parseInt(cargoForm.getCarid()));
+		}
+		
+		if (carsue.abs().compareTo(new BigDecimal("99999.99")) > 0) {
+			JOptionPane.showMessageDialog(cargoForm,
+					"El sueldo debe ser menor a 100000",
+					"Validación",
+					JOptionPane.WARNING_MESSAGE
+			);
+			return null;
 		}
 		
 		cargo.setCarnom(cargoForm.getCarnom());
