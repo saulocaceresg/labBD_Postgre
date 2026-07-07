@@ -6,8 +6,10 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import dao.*;
+import dao.CargoDAO;
 import model.*;
 import view.*;
+import java.util.ArrayList;
 
 public class CargoController {
 	
@@ -87,7 +89,7 @@ public class CargoController {
 	// método para actualizar los registros. Si la bandera está en 0 no hace nada, si no, según la acción pendiente interactúa con la BD
 	public void update() {
 		if (carflaact == 0) {
-			showNoActionSelectedWarning();
+			aviso();
 			return;
 		}
 		
@@ -118,6 +120,7 @@ public class CargoController {
 					cargoForm,
 					"Registro actualizado exitosamente"
 					);
+			loadTable();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -132,7 +135,7 @@ public class CargoController {
 		carflaact = 0;
 	}
 	
-	private void showNoActionSelectedWarning() {
+	private void aviso() {
 	    JOptionPane.showOptionDialog(
 	            cargoForm,
 	            "No se ha seleccionado un comando para actualizar un registro de la BD",
@@ -143,6 +146,22 @@ public class CargoController {
 	            new Object[] { "Cancelar" },
 	            "Cancelar"
 	    );
+	}
+	
+	public void loadTable() {
+		try {
+			ArrayList<Cargo> cargos = CargoDAO.list(); // carga los cargos con el arraylist
+			cargoForm.loadTable(cargos);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(
+					cargoForm,
+					"Error al cargar registros de la base de datos",
+					"Error",
+					JOptionPane.ERROR_MESSAGE
+			);
+//			
+//			e.printStackTrace();
+		}
 	}
 	
 }

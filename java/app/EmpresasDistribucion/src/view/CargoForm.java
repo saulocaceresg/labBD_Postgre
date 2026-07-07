@@ -14,6 +14,8 @@ import java.awt.Insets;
 import javax.swing.table.DefaultTableModel;
 
 import controller.CargoController;
+import dao.CargoDAO;
+import model.Cargo;
 
 import java.awt.ComponentOrientation;
 import javax.swing.border.CompoundBorder;
@@ -21,6 +23,9 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.Rectangle;
+import java.util.Iterator;
+
+import java.util.List;
 
 public class CargoForm extends JFrame {
 	private JTextField txtcarcod;
@@ -52,27 +57,23 @@ public class CargoForm extends JFrame {
 				.addGroup(gl_pan_cargo.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_pan_cargo.createParallelGroup(Alignment.LEADING)
+						.addComponent(pan_tabla_cargo, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
 						.addGroup(Alignment.TRAILING, gl_pan_cargo.createSequentialGroup()
 							.addGap(0)
-							.addComponent(registro_cargo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addGap(31))
-						.addGroup(gl_pan_cargo.createSequentialGroup()
-							.addComponent(pan_tabla_cargo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addGap(31))
-						.addGroup(gl_pan_cargo.createSequentialGroup()
-							.addComponent(pan_buttons, GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
-							.addGap(31))))
+							.addComponent(registro_cargo, GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))
+						.addComponent(pan_buttons, GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))
+					.addGap(31))
 		);
 		gl_pan_cargo.setVerticalGroup(
-			gl_pan_cargo.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_pan_cargo.createSequentialGroup()
+			gl_pan_cargo.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_pan_cargo.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(registro_cargo, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(pan_tabla_cargo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(pan_tabla_cargo, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(pan_buttons, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(42, Short.MAX_VALUE))
+					.addGap(22))
 		);
 		GridBagLayout gbl_pan_buttons = new GridBagLayout();
 		gbl_pan_buttons.columnWidths = new int[] {20, 20, 20};
@@ -185,7 +186,7 @@ public class CargoForm extends JFrame {
 		pan_buttons.add(btn_exit, gbc_btn_exit);
 		
 		JScrollPane scrl_tab_cargo = new JScrollPane();
-		scrl_tab_cargo.setPreferredSize(new Dimension(400, 80));
+		scrl_tab_cargo.setPreferredSize(new Dimension(400, 100));
 		scrl_tab_cargo.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		scrl_tab_cargo.setSize(new Dimension(0, 5));
 		pan_tabla_cargo.add(scrl_tab_cargo);
@@ -230,6 +231,8 @@ public class CargoForm extends JFrame {
 		registro_cargo.add(carid, gbc_carid);
 		
 		txtcarcod = new JTextField();
+		txtcarcod.setEditable(false);
+		txtcarcod.setEnabled(false);
 		GridBagConstraints gbc_txtcarcod = new GridBagConstraints();
 		gbc_txtcarcod.anchor = GridBagConstraints.LINE_START;
 		gbc_txtcarcod.insets = new Insets(0, 0, 5, 0);
@@ -249,6 +252,8 @@ public class CargoForm extends JFrame {
 		registro_cargo.add(carnom, gbc_carnom);
 		
 		txtcarnom = new JTextField();
+		txtcarnom.setEditable(false);
+		txtcarnom.setEnabled(false);
 		GridBagConstraints gbc_txtcarnom = new GridBagConstraints();
 		gbc_txtcarnom.anchor = GridBagConstraints.LINE_START;
 		gbc_txtcarnom.insets = new Insets(0, 0, 5, 0);
@@ -267,6 +272,8 @@ public class CargoForm extends JFrame {
 		registro_cargo.add(cardes, gbc_cardes);
 		
 		txtcardes = new JTextField();
+		txtcardes.setEnabled(false);
+		txtcardes.setEditable(false);
 		txtcardes.setBounds(new Rectangle(100, 50, 200, 50));
 		txtcardes.setHorizontalAlignment(SwingConstants.LEFT);
 		txtcardes.setPreferredSize(new Dimension(200, 20));
@@ -289,6 +296,8 @@ public class CargoForm extends JFrame {
 		registro_cargo.add(lblSueldo, gbc_lblSueldo);
 		
 		txtcarsue = new JTextField();
+		txtcarsue.setEnabled(false);
+		txtcarsue.setEditable(false);
 		GridBagConstraints gbc_txtcarsue = new GridBagConstraints();
 		gbc_txtcarsue.anchor = GridBagConstraints.LINE_START;
 		gbc_txtcarsue.insets = new Insets(0, 0, 5, 0);
@@ -307,6 +316,8 @@ public class CargoForm extends JFrame {
 		registro_cargo.add(carestreg, gbc_carestreg);
 		
 		txtcarestreg = new JTextField();
+		txtcarestreg.setEnabled(false);
+		txtcarestreg.setEditable(false);
 		GridBagConstraints gbc_txtcarestreg = new GridBagConstraints();
 		gbc_txtcarestreg.weightx = 1.0;
 		gbc_txtcarestreg.anchor = GridBagConstraints.LINE_START;
@@ -320,6 +331,8 @@ public class CargoForm extends JFrame {
 		
 		// Objeto Controller para conectar con la BD
 		CargoController controller = new CargoController(this);
+		
+		controller.loadTable();
 		
 		btn_add.addActionListener(e -> {
 			controller.add();
@@ -372,6 +385,21 @@ public class CargoForm extends JFrame {
 
 	public String getCarestreg() {
 		return txtcarestreg.getText().trim();
+	}
+	
+	public void loadTable(List<Cargo> cargos) {
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.setRowCount(0);
+		
+		for (Cargo c : cargos) {
+			model.addRow(new Object[] {
+					c.getCarid(),
+					c.getCarnom(),
+					c.getCardes(),
+					c.getCarsue(),
+					c.getCarestreg()
+			});
+		}
 	}
 
 	public static void main(String[] args) {

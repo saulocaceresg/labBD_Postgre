@@ -34,7 +34,7 @@ public class CargoDAO extends BaseDAO {
 //			""";
 	
 	// list para listar los ítemes en la app
-	public ArrayList<Cargo> list() throws SQLException {
+	public static ArrayList<Cargo> list() throws SQLException {
 		ArrayList<Cargo> items = new ArrayList<Cargo>();
 		
 		try (
