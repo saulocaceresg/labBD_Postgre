@@ -26,6 +26,7 @@ import java.awt.Rectangle;
 import java.util.Iterator;
 
 import java.util.List;
+import java.util.TreeMap;
 
 public class CargoForm extends JFrame {
 	private JTextField txtcarcod;
@@ -335,6 +336,17 @@ public class CargoForm extends JFrame {
 		controller.loadTable();
 		
 		btn_add.addActionListener(e -> {
+			txtcarnom.setEnabled(true);
+			txtcarnom.setEditable(true);
+			txtcarnom.setFocusable(true);
+			
+			txtcarsue.setEnabled(true);
+			txtcarsue.setEditable(true);
+			
+			txtcardes.setEnabled(true);
+			txtcardes.setEditable(true);			
+			
+			txtcarestreg.setText("A");
 			controller.add();
 		});
 		

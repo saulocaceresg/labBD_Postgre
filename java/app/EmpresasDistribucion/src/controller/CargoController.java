@@ -57,7 +57,7 @@ public class CargoController {
 	}
 	
 	public void add() {
-		cargo = createCargo();
+		//cargo = createCargo();
 		pendingAction = ADD;
 		carflaact = 1;
 	}
@@ -91,6 +91,8 @@ public class CargoController {
 		if (carflaact == 0) {
 			aviso();
 			return;
+		} else {
+			cargo = createCargo();
 		}
 		
 		try {
