@@ -347,6 +347,8 @@ public class CargoForm extends JFrame {
 		controller.loadTable();
 		
 		btn_add.addActionListener(e -> {
+			btn_cancel.setEnabled(true);
+			
 			txtcarnom.setEnabled(true);
 			txtcarnom.setEditable(true);
 			txtcarnom.setFocusable(true);
@@ -369,6 +371,8 @@ public class CargoForm extends JFrame {
 		});
 		
 		btn_mod.addActionListener(e -> {
+			btn_cancel.setEnabled(true);
+			
 			int row = table.getSelectedRow();
 			if (row == -1) return;
 			
@@ -394,17 +398,8 @@ public class CargoForm extends JFrame {
 		});
 		
 		btn_cancel.addActionListener(e -> {
+			disableFields();
 			controller.cancel();
-
-		    txtcarcod.setText("");
-		    txtcarnom.setText("");
-		    txtcardes.setText("");
-		    txtcarsue.setText("");
-		    txtcarestreg.setText("");
-
-		    txtcarcod.setEditable(true);
-		    txtcarestreg.setEditable(true);
-
 		    table.clearSelection();
 		    btn_mod.setEnabled(false);
 		});
@@ -424,6 +419,26 @@ public class CargoForm extends JFrame {
 		btn_exit.addActionListener(e -> {
 			dispose();
 		});
+	}
+	
+	// inhabilita los campos para evitar errores luego de cancelar una acción. 
+	// El usuario podría ingresar datos y estos generar errores.
+	public void disableFields() {
+		txtcarcod.setText("");
+		txtcarcod.setEnabled(false);
+		txtcarcod.setEditable(false);
+		txtcarnom.setText("");
+		txtcarnom.setEnabled(false);
+		txtcarnom.setEditable(false);
+		txtcardes.setText("");
+		txtcardes.setEnabled(false);
+		txtcardes.setEditable(false);
+		txtcarsue.setText("");
+		txtcarsue.setEnabled(false);
+		txtcarsue.setEditable(false);
+	    txtcarestreg.setText("");
+	    txtcarestreg.setEnabled(false);
+	    txtcarestreg.setEditable(false);
 	}
 	
 	public String getCarid() {
