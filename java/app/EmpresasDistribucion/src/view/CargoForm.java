@@ -365,8 +365,14 @@ public class CargoForm extends JFrame {
 		
 		// detecta cuando el usuario hace click en una de las grillas
 		table.getSelectionModel().addListSelectionListener(e -> {
-			if (!e.getValueIsAdjusting()) {
-				btn_mod.setEnabled(table.getSelectedRow() != -1);
+			int row = table.getSelectedRow();
+			if (!e.getValueIsAdjusting() && row != -1) {
+				btn_mod.setEnabled(row != -1);
+				btn_eliminar.setEnabled(row != -1);
+				
+				if (table.getValueAt(row, 4) == "A") {
+					
+				}
 			}
 		});
 		
