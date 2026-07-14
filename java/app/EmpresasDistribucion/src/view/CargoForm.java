@@ -102,6 +102,7 @@ public class CargoForm extends JFrame {
 		btn_mod.setHorizontalTextPosition(SwingConstants.CENTER);
 		btn_mod.setMargin(new Insets(10, 20, 10, 20));
 		btn_mod.setMaximumSize(new Dimension(30, 20));
+		btn_mod.setEnabled(false); // se inhabilita hasta que se selecciona un registro
 		GridBagConstraints gbc_btn_mod = new GridBagConstraints();
 		gbc_btn_mod.fill = GridBagConstraints.BOTH;
 		gbc_btn_mod.insets = new Insets(0, 0, 5, 5);
@@ -115,6 +116,7 @@ public class CargoForm extends JFrame {
 		btn_eliminar.setHorizontalTextPosition(SwingConstants.CENTER);
 		btn_eliminar.setMargin(new Insets(10, 20, 10, 20));
 		btn_eliminar.setMaximumSize(new Dimension(30, 20));
+		btn_eliminar.setEnabled(false);
 		GridBagConstraints gbc_btn_eliminar = new GridBagConstraints();
 		gbc_btn_eliminar.fill = GridBagConstraints.BOTH;
 		gbc_btn_eliminar.insets = new Insets(0, 0, 5, 5);
@@ -128,6 +130,7 @@ public class CargoForm extends JFrame {
 		btn_cancel.setHorizontalTextPosition(SwingConstants.CENTER);
 		btn_cancel.setMargin(new Insets(10, 20, 10, 20));
 		btn_cancel.setMaximumSize(new Dimension(30, 20));
+		btn_cancel.setEnabled(false);
 		GridBagConstraints gbc_btn_cancel = new GridBagConstraints();
 		gbc_btn_cancel.fill = GridBagConstraints.BOTH;
 		gbc_btn_cancel.insets = new Insets(0, 0, 5, 0);
@@ -141,6 +144,7 @@ public class CargoForm extends JFrame {
 		btn_inactivate.setHorizontalTextPosition(SwingConstants.CENTER);
 		btn_inactivate.setMargin(new Insets(10, 20, 10, 20));
 		btn_inactivate.setMaximumSize(new Dimension(30, 20));
+		btn_inactivate.setEnabled(false);
 		GridBagConstraints gbc_btn_inactivate = new GridBagConstraints();
 		gbc_btn_inactivate.fill = GridBagConstraints.BOTH;
 		gbc_btn_inactivate.insets = new Insets(0, 0, 0, 5);
@@ -154,6 +158,7 @@ public class CargoForm extends JFrame {
 		btn_reactivate.setHorizontalTextPosition(SwingConstants.CENTER);
 		btn_reactivate.setMargin(new Insets(10, 20, 10, 20));
 		btn_reactivate.setMaximumSize(new Dimension(30, 20));
+		btn_reactivate.setEnabled(false);
 		GridBagConstraints gbc_btn_reactivate = new GridBagConstraints();
 		gbc_btn_reactivate.fill = GridBagConstraints.BOTH;
 		gbc_btn_reactivate.insets = new Insets(0, 0, 0, 5);
@@ -193,6 +198,7 @@ public class CargoForm extends JFrame {
 		pan_tabla_cargo.add(scrl_tab_cargo);
 		
 		table = new JTable();
+		table.setCellSelectionEnabled(true);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, null, null},
@@ -208,6 +214,11 @@ public class CargoForm extends JFrame {
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
+			}
+			
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
 			}
 		});
 		table.getColumnModel().getColumn(0).setPreferredWidth(50);
@@ -350,7 +361,31 @@ public class CargoForm extends JFrame {
 			controller.add();
 		});
 		
+		// detecta cuando el usuario hace click en una de las grillas
+		table.getSelectionModel().addListSelectionListener(e -> {
+			if (!e.getValueIsAdjusting()) {
+				btn_mod.setEnabled(table.getSelectedRow() != -1);
+			}
+		});
+		
 		btn_mod.addActionListener(e -> {
+			int row = table.getSelectedRow();
+			if (row == -1) return;
+			
+			txtcarcod.setText(table.getValueAt(row, 0).toString());
+		    txtcarnom.setText(table.getValueAt(row, 1).toString());
+		    txtcarnom.setEnabled(true);
+		    txtcarnom.setEditable(true);
+		    txtcardes.setText(table.getValueAt(row, 2).toString());
+		    txtcardes.setEnabled(true);
+		    txtcardes.setEditable(true);
+		    txtcarsue.setText(table.getValueAt(row, 3).toString());
+		    txtcarestreg.setText(table.getValueAt(row, 4).toString());
+		    
+		    // inhabilita el código y el estado de registro
+		    txtcarcod.setEditable(false);
+		    txtcarestreg.setEditable(false);
+		    
 			controller.modify();
 		});
 		
@@ -360,6 +395,18 @@ public class CargoForm extends JFrame {
 		
 		btn_cancel.addActionListener(e -> {
 			controller.cancel();
+
+		    txtcarcod.setText("");
+		    txtcarnom.setText("");
+		    txtcardes.setText("");
+		    txtcarsue.setText("");
+		    txtcarestreg.setText("");
+
+		    txtcarcod.setEditable(true);
+		    txtcarestreg.setEditable(true);
+
+		    table.clearSelection();
+		    btn_mod.setEnabled(false);
 		});
 		
 		btn_inactivate.addActionListener(e -> {

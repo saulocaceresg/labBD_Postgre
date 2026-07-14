@@ -63,7 +63,7 @@ public class CargoController {
 	}
 	
 	public void modify() {
-		cargo = createCargo();
+		//cargo = createCargo();
 		pendingAction = MODIFY;
 		carflaact = 1;
 	}
@@ -91,11 +91,11 @@ public class CargoController {
 		if (carflaact == 0) {
 			aviso();
 			return;
-		} else {
-			cargo = createCargo();
 		}
 		
 		try {
+			cargo = createCargo();
+			
 			switch (pendingAction) {
 				case ADD: 
 					cargoDAO.add(cargo);
