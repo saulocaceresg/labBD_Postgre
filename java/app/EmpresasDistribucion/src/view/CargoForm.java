@@ -27,6 +27,7 @@ import java.util.Iterator;
 
 import java.util.List;
 import java.util.TreeMap;
+import java.util.function.IntBinaryOperator;
 
 public class CargoForm extends JFrame {
 	private JTextField txtcarcod;
@@ -408,11 +409,8 @@ public class CargoForm extends JFrame {
 		});
 		
 		btn_eliminar.addActionListener(e -> {
-			int row = table.getSelectedRow();
-			if (row == -1) return;
-			int id = Integer.parseInt(table.getValueAt(row, 0).toString());
-			controller.delete(id);
-			btn_eliminar.setEnabled(false);
+			int id = getSelectedCarId();
+			if (id != -1) controller.delete(id);
 		});
 		
 		btn_cancel.addActionListener(e -> {
@@ -420,15 +418,19 @@ public class CargoForm extends JFrame {
 			controller.cancel();
 		    table.clearSelection();
 		    btn_mod.setEnabled(false);
-		    btn_cancel.setEnabled(false);	
+		    btn_cancel.setEnabled(false);
 		});
 		
 		btn_inactivate.addActionListener(e -> {
-			controller.inactivate();
+			int id = getSelectedCarId();
+			if (id != -1) controller.inactivate(id);
+			//btn_inactivate.setEnabled(false);
 		});
 		
 		btn_reactivate.addActionListener(e -> {
-			controller.reactivate();
+			int id = getSelectedCarId();
+			if (id != -1) controller.reactivate(id); 
+			//btn_reactivate.setEnabled(false);
 		});
 		
 		btn_update.addActionListener(e -> {
@@ -493,6 +495,13 @@ public class CargoForm extends JFrame {
 					c.getCarestreg()
 			});
 		}
+	}
+	
+	// método para obtener el código
+	public int getSelectedCarId() {
+		int row = table.getSelectedRow();
+		if (row != -1) return -1;
+		return Integer.parseInt(table.getValueAt(row, 0).toString());
 	}
 
 	public static void main(String[] args) {

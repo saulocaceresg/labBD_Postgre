@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS public.categoria
 (
     catid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     catnom character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    catestreg CHAR(1) NOT NULL CHECK(catestreg IN ('A', 'I', 'E')),
+    catestreg CHAR(1) NOT NULL CHECK(catestreg IN ('A', 'I', '*')),
     CONSTRAINT categoria_pkey PRIMARY KEY (catid)
 );
 
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS public.ciudad
     regid smallint NOT NULL,
     ciunom character varying(20) COLLATE pg_catalog."default" NOT NULL,
     ciudes character varying(40) COLLATE pg_catalog."default",
-    ciuestreg CHAR(1) NOT NULL CHECK(ciuestreg IN ('A', 'I', 'E')),
+    ciuestreg CHAR(1) NOT NULL CHECK(ciuestreg IN ('A', 'I', '*')),
     CONSTRAINT ciudad_pkey PRIMARY KEY (ciuid)
 );
 
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS public.cliente
     cliapepat character varying(50) COLLATE pg_catalog."default" NOT NULL,
     cliapemat character varying(50) COLLATE pg_catalog."default" NOT NULL,
     clicor character varying(100) COLLATE pg_catalog."default" NOT NULL,
-    cliestreg CHAR(1) NOT NULL CHECK(cliestreg IN ('A', 'I', 'E')),
+    cliestreg CHAR(1) NOT NULL CHECK(cliestreg IN ('A', 'I', '*')),
     CONSTRAINT cliente_pkey PRIMARY KEY (cliid)
 );
 
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS public.creditos
     creid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     crenom character varying(40) NOT NULL,
     credes character varying(200) COLLATE pg_catalog."default",
-    creestreg CHAR(1) NOT NULL CHECK (creestreg IN ('A', 'I', 'E')),
+    creestreg CHAR(1) NOT NULL CHECK (creestreg IN ('A', 'I', '*')),
     CONSTRAINT creditos_pkey PRIMARY KEY (creid)
 );
 
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS public.detalle
     proid integer NOT NULL,
     facid integer NOT NULL,
     detcan integer NOT NULL,
-    detestreg CHAR(1) NOT NULL CHECK (detestreg IN ('A', 'I', 'E')),
+    detestreg CHAR(1) NOT NULL CHECK (detestreg IN ('A', 'I', '*')),
     CONSTRAINT detalle_pkey PRIMARY KEY (detid)
 );
 
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS public.empresa
     empid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     empnom character varying(50) COLLATE pg_catalog."default" NOT NULL,
     emptip integer NOT NULL,
-    empestreg CHAR(1) NOT NULL CHECK (empestreg IN ('A', 'I', 'E')),
+    empestreg CHAR(1) NOT NULL CHECK (empestreg IN ('A', 'I', '*')),
     CONSTRAINT empresa_pkey PRIMARY KEY (empid)
 );
 
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS public.fabricante
     fabid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     fabnom character varying(20) COLLATE pg_catalog."default" NOT NULL,
     tipid integer NOT NULL,
-    fabestreg CHAR(1) NOT NULL CHECK (fabestreg IN ('A', 'I', 'E')),
+    fabestreg CHAR(1) NOT NULL CHECK (fabestreg IN ('A', 'I', '*')),
     CONSTRAINT fabricante_pkey PRIMARY KEY (fabid)
 );
 
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS public.factura_cabecera
     repid integer NOT NULL,
     ciuid integer NOT NULL,
     facfec date NOT NULL,
-    facestreg CHAR(1) NOT NULL CHECK (facestreg IN ('A', 'I', 'E')),
+    facestreg CHAR(1) NOT NULL CHECK (facestreg IN ('A', 'I', '*')),
     CONSTRAINT factura_pkey PRIMARY KEY (facid)
 );
 
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS public.oficina
     ofiid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     empid integer NOT NULL,
     ofinom character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    ofirepestreg CHAR(1) NOT NULL CHECK (ofirepestreg IN ('A', 'I', 'E')),
+    ofirepestreg CHAR(1) NOT NULL CHECK (ofirepestreg IN ('A', 'I', '*')),
     CONSTRAINT oficina_pkey PRIMARY KEY (ofiid)
 );
 
@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS public.oficina_representante
     ofirepid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     ofiid integer NOT NULL,
     ofirepnom character varying(50) COLLATE pg_catalog."default" NOT NULL,
-    ofirepestreg CHAR(1) NOT NULL CHECK (ofirepestreg IN ('A', 'I', 'E')),
+    ofirepestreg CHAR(1) NOT NULL CHECK (ofirepestreg IN ('A', 'I', '*')),
     CONSTRAINT oficina_representante_pkey PRIMARY KEY (ofirepid),
     CONSTRAINT oficina_representante_ofiid_key UNIQUE (ofiid)
 );
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS public.producto
     prosto integer NOT NULL,
     catid integer NOT NULL,
     prounimed character varying(3) COLLATE pg_catalog."default" NOT NULL,
-    proestreg CHAR(1) NOT NULL CHECK (proestreg IN ('A', 'I', 'E')),
+    proestreg CHAR(1) NOT NULL CHECK (proestreg IN ('A', 'I', '*')),
     CONSTRAINT producto_pkey PRIMARY KEY (proid)
 );
 
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS public.region
     regid smallint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 32767 CACHE 1 ),
     regnom character varying(20) COLLATE pg_catalog."default" NOT NULL,
     regdes character varying(40) COLLATE pg_catalog."default",
-    regestreg CHAR(1) NOT NULL CHECK (regestreg IN ('A', 'I', 'E')),
+    regestreg CHAR(1) NOT NULL CHECK (regestreg IN ('A', 'I', '*')),
     CONSTRAINT region_pkey PRIMARY KEY (regid)
 );
 
@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS public.rep_venta
     repcon date NOT NULL,
     repcuo integer NOT NULL,
     repven integer NOT NULL,
-    repestreg CHAR(1) NOT NULL CHECK (repestreg IN ('A', 'I', 'E')),
+    repestreg CHAR(1) NOT NULL CHECK (repestreg IN ('A', 'I', '*')),
     CONSTRAINT rep_venta_pkey PRIMARY KEY (repid)
 );
 
@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS public.tipo_empresa
 (
     tipid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     tipnom character varying(20) COLLATE pg_catalog."default" NOT NULL,
-    tipestreg CHAR(1) NOT NULL CHECK (tipestreg IN ('A', 'I', 'E')),
+    tipestreg CHAR(1) NOT NULL CHECK (tipestreg IN ('A', 'I', '*')),
     CONSTRAINT tipo_pkey PRIMARY KEY (tipid)
 );
 
@@ -162,7 +162,7 @@ CREATE TABLE IF NOT EXISTS public.unidad_medida
 (
     uniid character varying(3) COLLATE pg_catalog."default" NOT NULL,
     uninom character varying(15) COLLATE pg_catalog."default" NOT NULL,
-    uniestreg CHAR(1) NOT NULL CHECK (uniestreg IN ('A', 'I', 'E')),
+    uniestreg CHAR(1) NOT NULL CHECK (uniestreg IN ('A', 'I', '*')),
     CONSTRAINT unidad_medida_pkey PRIMARY KEY (uniid)
 );
 
@@ -173,7 +173,7 @@ CREATE TABLE IF NOT EXISTS public.direccion
     calid integer NOT NULL,
     dircalnum character varying(5) NOT NULL,
     barid integer NOT NULL,
-    direstreg CHAR(1) NOT NULL CHECK (direstreg IN ('A', 'I', 'E')),
+    direstreg CHAR(1) NOT NULL CHECK (direstreg IN ('A', 'I', '*')),
     PRIMARY KEY (dirid)
 );
 
@@ -182,7 +182,7 @@ CREATE TABLE IF NOT EXISTS public.calle
     calid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     calnom character varying(100) NOT NULL,
     caldes character varying(200),
-    calestreg CHAR(1) NOT NULL CHECK (calestreg IN ('A', 'I', 'E')),
+    calestreg CHAR(1) NOT NULL CHECK (calestreg IN ('A', 'I', '*')),
     PRIMARY KEY (calid)
 );
 
@@ -191,7 +191,7 @@ CREATE TABLE IF NOT EXISTS public.barrio
     barid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
     barnom character varying(50) NOT NULL,
     bardes character varying(100),
-    barestreg CHAR(1) NOT NULL CHECK (barestreg IN ('A', 'I', 'E')),
+    barestreg CHAR(1) NOT NULL CHECK (barestreg IN ('A', 'I', '*')),
     PRIMARY KEY (barid)
 );
 

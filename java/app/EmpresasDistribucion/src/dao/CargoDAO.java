@@ -124,6 +124,7 @@ public class CargoDAO extends BaseDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 	

@@ -25,6 +25,7 @@ public class CargoController {
 	private Cargo cargo;
 	private byte carflaact = 0;
 	private String pendingAction = "";
+	private int selectId;
 	
 	public CargoController(CargoForm form) {
 		this.cargoForm = form;
@@ -68,20 +69,20 @@ public class CargoController {
 		carflaact = 1;
 	}
 	
-	public void delete() {
-		//cargo = createCargo();
+	public void delete(int id) {
+		this.selectId = id;
 		pendingAction = DELETE;
 		carflaact = 1;
 	}
 	
-	public void inactivate() {
-		//cargo = createCargo();
+	public void inactivate(int id) {
+		this.selectId = id;
 		pendingAction = INACTIVATE;
 		carflaact = 1;
 	}
 	
-	public void reactivate() {
-		//cargo = createCargo();
+	public void reactivate(int id) {
+		this.selectId = id;
 		pendingAction = REACTIVATE;
 		carflaact = 1;
 	}
@@ -105,19 +106,20 @@ public class CargoController {
 					cargoDAO.modify(cargo);
 					break;
 				case DELETE:
-					cargoDAO.delete(cargo.getCarid());
+					cargoDAO.delete(selectId);
 					break;
 				case INACTIVATE:
-					cargoDAO.inactivate(cargo.getCarid());
+					cargoDAO.inactivate(selectId);
 					break;
 				case REACTIVATE:
-					cargoDAO.reactivate(cargo.getCarid());
+					cargoDAO.reactivate(selectId);
 					break;
 			}
 			
 			carflaact = 0;
 			pendingAction = "";
 			cargo = null;
+			selectId = 0;
 			
 			JOptionPane.showMessageDialog(
 					cargoForm,
