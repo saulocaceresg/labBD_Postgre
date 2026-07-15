@@ -12,21 +12,21 @@ import model.TipoEmpresa;
 public class TipoEmpresaDAO extends BaseDAO {
 	
 	private static final String LIST = """
-			SELECT * FROM cargo
-			ORDER BY carid
+			SELECT * FROM tipo_empresa
+			ORDER BY tipid
 			""";
 	private static final String ADD = """
-			INSERT INTO cargo (carnom, carestreg) VALUES (?, ?)
+			INSERT INTO tipo_empresa (tipnom, tipestreg) VALUES (?, ?)
 			""";
 	private static final String MODIFY = """
-			UPDATE cargo
-			SET carnom = ?
-			WHERE carid = ?
+			UPDATE tipo_empresa
+			SET tipnom = ?
+			WHERE tipid = ?
 			""";
 	private static final String CHANGE_STATUS = """
-			UPDATE cargo
-			SET carestreg = ?
-			WHERE carid = ?
+			UPDATE tipo
+			SET tipestreg = ?
+			WHERE tipid = ?
 			""";
 //	private static final String DELETE = """
 //			
@@ -45,9 +45,9 @@ public class TipoEmpresaDAO extends BaseDAO {
 			while (rs.next()) {
 				TipoEmpresa cargo = new TipoEmpresa();
 				
-				cargo.setTipid(rs.getInt("carid"));
-				cargo.setTipnom(rs.getString("carnom"));
-				cargo.setTipestreg(rs.getString("carestreg"));
+				cargo.setTipid(rs.getInt("tipid"));
+				cargo.setTipnom(rs.getString("tipnom"));
+				cargo.setTipestreg(rs.getString("tipestreg"));
 				
 				items.add(cargo);
 			}
@@ -104,14 +104,14 @@ public class TipoEmpresaDAO extends BaseDAO {
 	}
 	
 	// Método para modifica el estado de registro
-	private void changeStatus(int carid, String carestreg) throws SQLException {
+	private void changeStatus(int tipid, String tipestreg) throws SQLException {
 		try (
 				Connection cn = getConnection();
 				PreparedStatement ps = prepareStatement(cn, CHANGE_STATUS);
 				) {
 			
-			ps.setString(1, carestreg);
-			ps.setInt(2, carid);
+			ps.setString(1, tipestreg);
+			ps.setInt(2, tipid);
 			
 			ps.executeUpdate();
 			

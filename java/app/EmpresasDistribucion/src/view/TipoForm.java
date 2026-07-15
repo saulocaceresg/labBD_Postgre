@@ -38,8 +38,8 @@ public class TipoForm extends JFrame{
 	private JTextField txttipestreg;
 
 	public TipoForm () {
-		setSize(new Dimension(520, 520));
-		setTitle("CARGO");
+		setSize(new Dimension(520, 500));
+		setTitle("TIPO DE EMPRESA");
 		getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JPanel pan_tipo = new JPanel();
@@ -59,10 +59,8 @@ public class TipoForm extends JFrame{
 				.addGroup(gl_pan_tipo.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_pan_tipo.createParallelGroup(Alignment.LEADING)
-						.addComponent(pan_tabla_tipo, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, gl_pan_tipo.createSequentialGroup()
-							.addGap(0)
-							.addComponent(registro_tipo, GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))
+						.addComponent(registro_tipo, GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+						.addComponent(pan_tabla_tipo, GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
 						.addComponent(pan_buttons, GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE))
 					.addGap(31))
 		);
@@ -70,12 +68,12 @@ public class TipoForm extends JFrame{
 			gl_pan_tipo.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_pan_tipo.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(registro_tipo, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE)
+					.addComponent(registro_tipo, GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(pan_tabla_tipo, GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(pan_buttons, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-					.addGap(22))
+					.addGap(65))
 		);
 		GridBagLayout gbl_pan_buttons = new GridBagLayout();
 		gbl_pan_buttons.columnWidths = new int[] {20, 20, 20};
@@ -195,43 +193,36 @@ public class TipoForm extends JFrame{
 		JScrollPane scrl_tab_tipo = new JScrollPane();
 		scrl_tab_tipo.setPreferredSize(new Dimension(400, 100));
 		scrl_tab_tipo.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		scrl_tab_tipo.setSize(new Dimension(0, 5));
+		scrl_tab_tipo.setSize(new Dimension(0, 4));
 		pan_tabla_tipo.add(scrl_tab_tipo);
 		
 		table = new JTable();
 		table.setCellSelectionEnabled(true);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
 			},
 			new String[] {
-				"C\u00F3digo", "Nombre", "Descripci\u00F3n", "Sueldo", "Estado Registro"
+				"C\u00F3digo", "Nombre", "Estado Registro"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				Integer.class, String.class, String.class, Double.class, String.class
+				Integer.class, String.class, String.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
-			
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
 		});
-		table.getColumnModel().getColumn(0).setPreferredWidth(50);
-		table.getColumnModel().getColumn(1).setPreferredWidth(80);
-		table.getColumnModel().getColumn(2).setPreferredWidth(150);
-		table.getColumnModel().getColumn(4).setPreferredWidth(100);
+		table.getColumnModel().getColumn(1).setPreferredWidth(180);
+		table.getColumnModel().getColumn(1).setMinWidth(16);
 		scrl_tab_tipo.setViewportView(table);
 		GridBagLayout gbl_registro_cargo = new GridBagLayout();
 		gbl_registro_cargo.columnWidths = new int[] {55, 250};
-		gbl_registro_cargo.rowHeights = new int[] {0, 20, 20, 0, 20};
+		gbl_registro_cargo.rowHeights = new int[] {0, 20, 20, 0};
 		gbl_registro_cargo.columnWeights = new double[]{0.0, 1.0};
-		gbl_registro_cargo.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
+		gbl_registro_cargo.rowWeights = new double[]{0.0, 0.0, 0.0};
 		registro_tipo.setLayout(gbl_registro_cargo);
 		
 		JLabel carid = new JLabel("Código");
@@ -279,19 +270,20 @@ public class TipoForm extends JFrame{
 		GridBagConstraints gbc_tipestreg = new GridBagConstraints();
 		gbc_tipestreg.anchor = GridBagConstraints.EAST;
 		gbc_tipestreg.fill = GridBagConstraints.VERTICAL;
-		gbc_tipestreg.insets = new Insets(0, 10, 0, 5);
+		gbc_tipestreg.insets = new Insets(0, 10, 5, 5);
 		gbc_tipestreg.gridx = 0;
-		gbc_tipestreg.gridy = 4;
+		gbc_tipestreg.gridy = 2;
 		registro_tipo.add(tipestreg, gbc_tipestreg);
 		
 		txttipestreg = new JTextField();
 		txttipestreg.setEnabled(false);
 		txttipestreg.setEditable(false);
 		GridBagConstraints gbc_txttipestreg = new GridBagConstraints();
+		gbc_txttipestreg.insets = new Insets(0, 0, 5, 0);
 		gbc_txttipestreg.weightx = 1.0;
 		gbc_txttipestreg.anchor = GridBagConstraints.LINE_START;
 		gbc_txttipestreg.gridx = 1;
-		gbc_txttipestreg.gridy = 4;
+		gbc_txttipestreg.gridy = 2;
 		registro_tipo.add(txttipestreg, gbc_txttipestreg);
 		txttipestreg.setColumns(3);
 		pan_tipo.setLayout(gl_pan_tipo);
@@ -355,7 +347,7 @@ public class TipoForm extends JFrame{
 		});
 		
 		btn_eliminar.addActionListener(e -> {
-			int id = getSelectedCarId();
+			int id = getSelectedTipId();
 			if (id != -1) controller.delete(id);
 		});
 		
@@ -368,13 +360,13 @@ public class TipoForm extends JFrame{
 		});
 		
 		btn_inactivate.addActionListener(e -> {
-			int id = getSelectedCarId();
+			int id = getSelectedTipId();
 			if (id != -1) controller.inactivate(id);
 			//btn_inactivate.setEnabled(false);
 		});
 		
 		btn_reactivate.addActionListener(e -> {
-			int id = getSelectedCarId();
+			int id = getSelectedTipId();
 			if (id != -1) controller.reactivate(id); 
 			//btn_reactivate.setEnabled(false);
 		});
@@ -427,7 +419,7 @@ public class TipoForm extends JFrame{
 	}
 	
 	// método para obtener el código
-	public int getSelectedCarId() {
+	public int getSelectedTipId() {
 		int row = table.getSelectedRow();
 		if (row != -1) return -1;
 		int id = Integer.parseInt(table.getValueAt(row, 0).toString());
@@ -436,7 +428,9 @@ public class TipoForm extends JFrame{
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
+		TipoForm frm = new TipoForm();
+		frm.setVisible(true);
 
 	}
 
