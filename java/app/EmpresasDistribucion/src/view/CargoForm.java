@@ -501,7 +501,9 @@ public class CargoForm extends JFrame {
 	public int getSelectedCarId() {
 		int row = table.getSelectedRow();
 		if (row != -1) return -1;
-		return Integer.parseInt(table.getValueAt(row, 0).toString());
+		int id = Integer.parseInt(table.getValueAt(row, 0).toString());
+		System.out.println("Id de la fila seleccionada: " + id);
+		return id;
 	}
 
 	public static void main(String[] args) {

@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.Cargo;
-import util.ConnectionFactory;
 
 
 public class CargoDAO extends BaseDAO {
