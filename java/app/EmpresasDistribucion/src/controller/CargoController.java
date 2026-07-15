@@ -69,19 +69,19 @@ public class CargoController {
 	}
 	
 	public void delete() {
-		cargo = createCargo();
+		//cargo = createCargo();
 		pendingAction = DELETE;
 		carflaact = 1;
 	}
 	
 	public void inactivate() {
-		cargo = createCargo();
+		//cargo = createCargo();
 		pendingAction = INACTIVATE;
 		carflaact = 1;
 	}
 	
 	public void reactivate() {
-		cargo = createCargo();
+		//cargo = createCargo();
 		pendingAction = REACTIVATE;
 		carflaact = 1;
 	}
@@ -94,8 +94,9 @@ public class CargoController {
 		}
 		
 		try {
-			cargo = createCargo();
-			
+			if (pendingAction == ADD || pendingAction == MODIFY) {
+				cargo = createCargo();
+			}
 			switch (pendingAction) {
 				case ADD: 
 					cargoDAO.add(cargo);

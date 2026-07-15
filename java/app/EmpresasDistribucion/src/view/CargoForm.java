@@ -365,13 +365,21 @@ public class CargoForm extends JFrame {
 		
 		// detecta cuando el usuario hace click en una de las grillas
 		table.getSelectionModel().addListSelectionListener(e -> {
-			int row = table.getSelectedRow();
-			if (!e.getValueIsAdjusting() && row != -1) {
-				btn_mod.setEnabled(row != -1);
-				btn_eliminar.setEnabled(row != -1);
+			
+			if (!e.getValueIsAdjusting()) {
+				int row = table.getSelectedRow();
+				boolean isSelection = row != -1;
 				
-				if (table.getValueAt(row, 4) == "A") {
-					
+				btn_mod.setEnabled(isSelection);
+				btn_eliminar.setEnabled(isSelection);
+				
+				if (isSelection) {
+					String estreg = table.getValueAt(row, 4).toString();
+					btn_inactivate.setEnabled(estreg.equals("A"));
+					btn_reactivate.setEnabled(estreg.equals("I"));
+				} else {
+					btn_inactivate.setEnabled(false);
+					btn_reactivate.setEnabled(false);
 				}
 			}
 		});
@@ -400,7 +408,11 @@ public class CargoForm extends JFrame {
 		});
 		
 		btn_eliminar.addActionListener(e -> {
-			controller.delete();
+			int row = table.getSelectedRow();
+			if (row == -1) return;
+			int id = Integer.parseInt(table.getValueAt(row, 0).toString());
+			controller.delete(id);
+			btn_eliminar.setEnabled(false);
 		});
 		
 		btn_cancel.addActionListener(e -> {
@@ -408,6 +420,7 @@ public class CargoForm extends JFrame {
 			controller.cancel();
 		    table.clearSelection();
 		    btn_mod.setEnabled(false);
+		    btn_cancel.setEnabled(false);	
 		});
 		
 		btn_inactivate.addActionListener(e -> {
